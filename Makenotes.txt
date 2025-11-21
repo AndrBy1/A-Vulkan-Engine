@@ -1,0 +1,4 @@
+//-lglfw is for GLFW, -lvulkan links with the Vulkan function loader and the remaining flags are low-level system libraries that GLFW needs. 
+//Rest of flags are dependencies of GLFW
+//test run the executable and clean will remove a built executable
+//* includes all files in directory with type after the *

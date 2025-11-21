@@ -1,0 +1,26 @@
+as of rn this file uses 3D models with settings:
+Forward: Z Forward
+Up: -Y Up
+Geometry: Triangulate Faces, Write Normals, Include UVs
+
+
+notes:
+GlobalUbo and FrameInfo is defined in vke_frame_info.VK_NULL_HANDLE
+Each push constant is defined in the systems cpp file (point_light_system, simple_render_system)
+
+The lights are translucent billboards. 
+
+camera position is obtained through inverseView 3rd column
+
+Order of inheritence:
+Window.h, device.h, buffer.h, model.h, game_object.h, swapchain.h, renderer.h, descriptor.h, camera.h, frameinfo.h, pipeline.h, 
+shaders, rendersystems, keyboard_movement_controller.h, first_app.h
+
+When creating a new object that uses binding in shaders, a new binding should be made in first_app.cpp in globalSetLayout
+
+TODO:
+check if I need headers in frame info
+//optimization if needed
+Maybe replace some vectors and hash tables with arrays
+Maybe replace smart pointers with normal pointers
+Maybe replace auto data types with set data types
