@@ -70,6 +70,8 @@ CMakeFiles/Shaders: ../shaders/point_light.frag.spv
 CMakeFiles/Shaders: ../shaders/point_light.vert.spv
 CMakeFiles/Shaders: ../shaders/shader.frag.spv
 CMakeFiles/Shaders: ../shaders/shader.vert.spv
+CMakeFiles/Shaders: ../shaders/texture.frag.spv
+CMakeFiles/Shaders: ../shaders/texture.vert.spv
 
 ../shaders/point_light.frag.spv: ../shaders/point_light.frag
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --blue --bold --progress-dir=/home/andrewbyi/Personal/VulkanTest/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_1) "Generating ../shaders/point_light.frag.spv"
@@ -87,11 +89,21 @@ CMakeFiles/Shaders: ../shaders/shader.vert.spv
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --blue --bold --progress-dir=/home/andrewbyi/Personal/VulkanTest/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_4) "Generating ../shaders/shader.vert.spv"
 	/usr/bin/glslangValidator -V /home/andrewbyi/Personal/VulkanTest/shaders/shader.vert -o /home/andrewbyi/Personal/VulkanTest/shaders/shader.vert.spv
 
+../shaders/texture.frag.spv: ../shaders/texture.frag
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --blue --bold --progress-dir=/home/andrewbyi/Personal/VulkanTest/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_5) "Generating ../shaders/texture.frag.spv"
+	/usr/bin/glslangValidator -V /home/andrewbyi/Personal/VulkanTest/shaders/texture.frag -o /home/andrewbyi/Personal/VulkanTest/shaders/texture.frag.spv
+
+../shaders/texture.vert.spv: ../shaders/texture.vert
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --blue --bold --progress-dir=/home/andrewbyi/Personal/VulkanTest/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_6) "Generating ../shaders/texture.vert.spv"
+	/usr/bin/glslangValidator -V /home/andrewbyi/Personal/VulkanTest/shaders/texture.vert -o /home/andrewbyi/Personal/VulkanTest/shaders/texture.vert.spv
+
 Shaders: CMakeFiles/Shaders
 Shaders: ../shaders/point_light.frag.spv
 Shaders: ../shaders/point_light.vert.spv
 Shaders: ../shaders/shader.frag.spv
 Shaders: ../shaders/shader.vert.spv
+Shaders: ../shaders/texture.frag.spv
+Shaders: ../shaders/texture.vert.spv
 Shaders: CMakeFiles/Shaders.dir/build.make
 .PHONY : Shaders
 

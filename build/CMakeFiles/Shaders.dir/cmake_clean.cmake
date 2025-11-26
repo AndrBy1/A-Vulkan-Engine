@@ -3,6 +3,8 @@ file(REMOVE_RECURSE
   "../shaders/point_light.vert.spv"
   "../shaders/shader.frag.spv"
   "../shaders/shader.vert.spv"
+  "../shaders/texture.frag.spv"
+  "../shaders/texture.vert.spv"
   "CMakeFiles/Shaders"
 )
 

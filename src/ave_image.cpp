@@ -33,6 +33,11 @@ namespace ave{
     }
 
     void AveImage::createTextureImage(const std::string& imagePath){
+
+        if (imagePath.empty()) {
+            std::cout << "no image path provided\n";
+            
+        }
         
         std::string fullPath = ENGINE_DIR + imagePath;
         int texWidth, texHeight, texChannels;

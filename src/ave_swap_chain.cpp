@@ -124,7 +124,7 @@ namespace ave {
 
     presentInfo.pImageIndices = imageIndex;
 
-    vkQueueWaitIdle(device.presentQueue()); // MAYBE REMOVE WHEN ON WINDOWS!
+    //vkQueueWaitIdle(device.presentQueue()); // MAYBE REMOVE WHEN ON WINDOWS!
     //vkQueuePresentKHR hands rendered image from swapchain over to presentation engine (like the window) so it can display on screen.
     auto result = vkQueuePresentKHR(device.presentQueue(), &presentInfo);
 

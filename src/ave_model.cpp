@@ -24,7 +24,7 @@ namespace std{
     struct hash<ave::AveModel::Vertex> {
         size_t operator()(const ave::AveModel::Vertex& vertex) const {
             size_t seed = 0;
-            ave::hashCombine(seed, vertex.position, vertex.color, vertex.normal, vertex.uv, vertex.texCoord);
+            ave::hashCombine(seed, vertex.position, vertex.color, vertex.normal, vertex.uv);
             return seed;
         }
     };
@@ -38,7 +38,7 @@ namespace ave
         //std::cout << "aveDevice address:" << &textureImage.getDevice() << "\n";
     }
     AveModel::~AveModel() {
-        textureImage.~AveImage();
+        //textureImage.~AveImage();
     }
 
     std::unique_ptr<AveModel> AveModel::createModelFromFile(AveDevice &device, const std::string& filepath){
@@ -49,7 +49,8 @@ namespace ave
     }
 
     void AveModel::attachTextureFromFile(const std::string& filepath){
-        textureImage.createTextureImage(filepath);
+        textureImage = std::make_unique<AveImage>(aveDevice); 
+        textureImage->createTextureImage(filepath);
 
     }
 
@@ -131,6 +132,11 @@ namespace ave
         aveDevice.copyBuffer(stagingBuffer.getBuffer(), indexBuffer->getBuffer(), bufferSize);
     }
 
+    void AveModel::setTextureDescriptor(VkDescriptorSet descriptor){
+        
+        textureDescriptor = descriptor; 
+    }
+
     void AveModel::draw(VkCommandBuffer commandBuffer) {
         if(hasIndexBuffer){
             vkCmdDrawIndexed(commandBuffer, indexCount, 1, 0, 0, 0);
@@ -170,8 +176,7 @@ namespace ave
         attributeDescriptions.push_back({1, 0, VK_FORMAT_R32G32B32_SFLOAT, offsetof(Vertex, color)});
         attributeDescriptions.push_back({2, 0, VK_FORMAT_R32G32B32_SFLOAT, offsetof(Vertex, normal)});
         attributeDescriptions.push_back({3, 0, VK_FORMAT_R32G32_SFLOAT, offsetof(Vertex, uv)}); //texture only have 2 components so just R G
-        attributeDescriptions.push_back({4, 0, VK_FORMAT_R32G32_SFLOAT, offsetof(Vertex, texCoord)}); //texture only have 2 components so just R G
-
+        
         return attributeDescriptions;
     }
 

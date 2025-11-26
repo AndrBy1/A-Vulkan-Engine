@@ -5,7 +5,6 @@ layout(location = 1) in vec3 color;
 //normals checks the direction of a surface. If the surface it pointing towards light it is lit. The greater the angle the darker. 
 layout(location = 2) in vec3 normal; 
 layout(location = 3) in vec2 uv;
-layout(location = 4) in vec2 texCoord; //for normal mapping
 
 layout(location = 0) out vec3 fragColor;
 layout(location = 1) out vec3 fragPosWorld;
@@ -51,6 +50,7 @@ void main() {
     fragNormalWorld = normalize(mat3(push.normalMatrix) * normal);
     fragPosWorld = positionWorld.xyz; //world space position of the fragment
     fragColor = color;
-    fragTexCoord = texCoord;
+    //fragColor = texture(texSampler, fragTexCoord).rgb;
+    fragTexCoord = uv;
 
 }

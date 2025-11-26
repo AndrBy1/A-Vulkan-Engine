@@ -25,9 +25,9 @@ namespace ave {
     
     FirstApp::FirstApp() {
         globalPool = AveDescriptorPool::Builder(aveDevice)
-            .setMaxSets(AveSwapChain::MAX_FRAMES_IN_FLIGHT)
+            .setMaxSets(AveSwapChain::MAX_FRAMES_IN_FLIGHT + 1)
             .addPoolSize(VK_DESCRIPTOR_TYPE_UNIFORM_BUFFER, AveSwapChain::MAX_FRAMES_IN_FLIGHT)
-            .addPoolSize(VK_DESCRIPTOR_TYPE_COMBINED_IMAGE_SAMPLER, AveSwapChain::MAX_FRAMES_IN_FLIGHT) //for texture images
+            .addPoolSize(VK_DESCRIPTOR_TYPE_COMBINED_IMAGE_SAMPLER, 1) //for texture images
             .build();
         loadGameObjects(); // Load the model data before creating the pipeline
     }
@@ -52,13 +52,15 @@ namespace ave {
             .addBinding(0, VK_DESCRIPTOR_TYPE_UNIFORM_BUFFER, VK_SHADER_STAGE_ALL_GRAPHICS)
             //.addBinding(1, VK_DESCRIPTOR_TYPE_COMBINED_IMAGE_SAMPLER, VK_SHADER_STAGE_FRAGMENT_BIT) //for texture images
             .build();
-            
+        setLayouts.push_back(globalSetLayout->getDescriptorSetLayout());
+        
         auto textureSetLayout = AveDescriptorSetLayout::Builder(aveDevice)
             .addBinding(0, VK_DESCRIPTOR_TYPE_COMBINED_IMAGE_SAMPLER, VK_SHADER_STAGE_FRAGMENT_BIT)
             .build();
-        
-        AveImage textureImage{aveDevice};
-        textureImage.createTextureImage("images/texture.jpg");
+        setLayouts.push_back(textureSetLayout->getDescriptorSetLayout());
+
+        //AveImage textureImage{aveDevice};
+        //textureImage.createTextureImage("images/texture.jpg");
 
         std::vector<VkDescriptorSet> globalDescriptorSets(AveSwapChain::MAX_FRAMES_IN_FLIGHT);
         for(int i = 0; i < globalDescriptorSets.size(); i++){
@@ -70,21 +72,28 @@ namespace ave {
                 //.writeImage(1, &imageInfo) //for texture images
                 .build(globalDescriptorSets[i]);
         }
+
+        std::vector<VkDescriptorSet> textureDescriptorSets(imageInfos.size());
+        for(int i = 0; i < imageInfos.size(); i++) {
+            //VkDescriptorImageInfo roomImageInfo = models[i].getTextureImage().descriptorInfo(VK_IMAGE_LAYOUT_SHADER_READ_ONLY_OPTIMAL);
+            //std::cout << "ImageInfo sampler: " << roomImageInfo.sampler << ", imageView: " << roomImageInfo.imageView << ", layout: " << roomImageInfo.imageLayout << std::endl;
+            AveDescriptorWriter(*textureSetLayout, *globalPool)
+                .writeImage(0, &imageInfos[i])
+                .build(textureDescriptorSets[i]);
+        }
         
-        SimpleRenderSystem simpleRenderSystem{aveDevice, aveRenderer.getSwapChainRenderPass(), globalSetLayout->getDescriptorSetLayout()};
+        SimpleRenderSystem simpleRenderSystem{aveDevice, aveRenderer.getSwapChainRenderPass(), setLayouts};
 
         PointLightSystem pointLightSystem{aveDevice, aveRenderer.getSwapChainRenderPass(), globalSetLayout->getDescriptorSetLayout()};
 
-        VkDescriptorSet textureDescriptor{VK_NULL_HANDLE};
-
-        for(int i = 0; i < imageInfos.size(); i++) {
-            AveDescriptorWriter(*textureSetLayout, *globalPool)
-                .writeImage(0, &imageInfos[i])
-                .build(textureDescriptor);
-        }
-
-        for(auto& obj : gameObjects) {
-            obj.second.model->setTextureDescriptor(textureDescriptor);
+        int ind = 0;
+        for(auto& kv : gameObjects) {
+            auto& obj = kv.second;
+            if (obj.model == nullptr) continue;
+            //TODO: make this moore efficient
+            //if (obj.model->getTextureImage() == nullptr) continue;
+            if (ind >= static_cast<int>(textureDescriptorSets.size())) break;
+            obj.model->setTextureDescriptor(textureDescriptorSets[ind++]);
         }
 
         AveCamera camera{};
@@ -98,6 +107,7 @@ namespace ave {
         std::cout << "sizeof(GlobalUbo): " << sizeof(GlobalUbo) << "\n";
 
         while (!aveWindow.shouldClose()) {
+            //std::cout << "New frame\n";
             glfwPollEvents(); //checks and processes window level events such as keyboard and mouse input
 
             auto newTime = std::chrono::high_resolution_clock::now();
@@ -135,23 +145,12 @@ namespace ave {
                 //order here matters
                 simpleRenderSystem.renderGameObjects(frameInfo);
                 pointLightSystem.render(frameInfo);
-                /*
-                vkCmdBindDescriptorSets(
-                    commandBuffer,
-                    VK_PIPELINE_BIND_POINT_GRAPHICS,
-                    simpleRenderSystem.getPipelineLayout(),
-                    1, // first set = 1 (textures)
-                    1,
-                    &model->textureDescriptor,
-                    0,
-                    nullptr
-                );*/
+                
                 
                 aveRenderer.endSwapChainRenderPass(commandBuffer);
                 aveRenderer.endFrame();
             }
         }
-
         vkDeviceWaitIdle(aveDevice.device()); //waits for the device to finish all operations before destroying resources
     }
 
@@ -178,6 +177,9 @@ namespace ave {
         AveModel = AveModel::createModelFromFile(aveDevice, "models/viking_room.obj");
         AveModel->attachTextureFromFile("textures/viking_room.png");
 
+        VkImageView texView = AveModel->getTextureImage().getImageView();
+        std::cout << "Texture ImageView: " << texView << std::endl;
+
         VkDescriptorImageInfo roomImageInfo = AveModel->getTextureImage().descriptorInfo(VK_IMAGE_LAYOUT_SHADER_READ_ONLY_OPTIMAL);
         imageInfos.push_back(roomImageInfo);
 
@@ -186,6 +188,8 @@ namespace ave {
         room.transform.translation = {0.f, 0.f, 0.f};
         room.transform.scale = {1.f, 1.f, 1.f};
         gameObjects.emplace(room.getId(),  std::move(room));
+        //assert(room.model != nullptr && "room.model is null");
+        //assert(room.model->getTextureDescriptor() != VK_NULL_HANDLE && "texture descriptor is null");
         //models.push_back(*AveModel);
 
         AveModel = AveModel::createModelFromFile(aveDevice, "models/quad.obj");

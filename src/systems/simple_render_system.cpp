@@ -18,8 +18,13 @@ namespace ave {
         glm::mat4 normalMatrix{1.f}; //use alignas to make right space in memory
     };
 
-    SimpleRenderSystem::SimpleRenderSystem(AveDevice& device, VkRenderPass renderPass, VkDescriptorSetLayout globalSetLayout) : aveDevice{device} {
-        createPipelineLayout(globalSetLayout);
+    SimpleRenderSystem::SimpleRenderSystem(AveDevice& device, VkRenderPass renderPass, std::vector<VkDescriptorSetLayout> setLayouts) : aveDevice{device}, setLayouts{setLayouts} {
+        /*
+        for(VkDescriptorSetLayout layout : setLayouts){
+            createPipelineLayout(layout);
+            //std::cout << "Descriptor Set Layout: " << layout << std::endl;
+        }*/
+        createPipelineLayout();
         createPipeline(renderPass);
     }
 
@@ -27,7 +32,7 @@ namespace ave {
         vkDestroyPipelineLayout(aveDevice.device(), pipelineLayout, nullptr);
     }
 
-    void SimpleRenderSystem::createPipelineLayout(VkDescriptorSetLayout globalSetLayout){
+    void SimpleRenderSystem::createPipelineLayout(){
 
         VkPushConstantRange pushConstantRange{};
         //this signals that we want access to push constant data in both vertex and frag shaders
@@ -35,12 +40,11 @@ namespace ave {
         pushConstantRange.offset = 0;
         pushConstantRange.size = sizeof(SimplePushConstantData);
         
-        std::vector<VkDescriptorSetLayout> descriptorSetLayouts{globalSetLayout};
         VkPipelineLayoutCreateInfo pipelineLayoutInfo{};
 
         pipelineLayoutInfo.sType = VK_STRUCTURE_TYPE_PIPELINE_LAYOUT_CREATE_INFO;
-        pipelineLayoutInfo.setLayoutCount = static_cast<uint32_t>(descriptorSetLayouts.size());
-        pipelineLayoutInfo.pSetLayouts = descriptorSetLayouts.data();
+        pipelineLayoutInfo.setLayoutCount = static_cast<uint32_t>(setLayouts.size());
+        pipelineLayoutInfo.pSetLayouts = setLayouts.data();
         //push constants are a way to efficiently send a small amount of data to shader programs
         pipelineLayoutInfo.pushConstantRangeCount = 1;
         pipelineLayoutInfo.pPushConstantRanges = &pushConstantRange;
@@ -58,7 +62,6 @@ namespace ave {
         pipelineConfig.renderPass = renderPass;
         pipelineConfig.pipelineLayout = pipelineLayout;
         avePipeline = std::make_unique<AvePipeline>(aveDevice, "shaders/shader.vert.spv", "shaders/shader.frag.spv", pipelineConfig);
-
     }
 
     void SimpleRenderSystem::renderGameObjects(FrameInfo& frameInfo){
@@ -75,18 +78,29 @@ namespace ave {
         );
 
         for(auto& obj: frameInfo.gameObjects){
+            //std::cout << "Rendering GameObject ID: " << obj.first << std::endl;
             if(obj.second.model == nullptr) continue;
             VkDescriptorSet textureSet = obj.second.model->getTextureDescriptor();
-            vkCmdBindDescriptorSets(
-                frameInfo.commandBuffer,
-                VK_PIPELINE_BIND_POINT_GRAPHICS,
-                pipelineLayout,
-                1, 1, 
-                &textureSet,
-                0, nullptr
-            );
-        }
+            if(textureSet != VK_NULL_HANDLE){
+                vkCmdBindDescriptorSets(
+                    frameInfo.commandBuffer,
+                    VK_PIPELINE_BIND_POINT_GRAPHICS,
+                    pipelineLayout,
+                    1, 1, 
+                    &textureSet,
+                    0, nullptr
+                );
+            }
+            SimplePushConstantData push{};
+            push.modelMatrix = obj.second.transform.mat4();
+            push.normalMatrix = obj.second.transform.normalMatrix();
 
+            vkCmdPushConstants(frameInfo.commandBuffer, pipelineLayout, VK_SHADER_STAGE_VERTEX_BIT | VK_SHADER_STAGE_FRAGMENT_BIT, 0, sizeof(SimplePushConstantData), &push);
+
+            obj.second.model->bind(frameInfo.commandBuffer);
+            obj.second.model->draw(frameInfo.commandBuffer);
+        }
+        /*
         for(auto& kv: frameInfo.gameObjects){
             auto& obj = kv.second;
             if(obj.model == nullptr) continue;
@@ -98,7 +112,7 @@ namespace ave {
 
             obj.model->bind(frameInfo.commandBuffer);
             obj.model->draw(frameInfo.commandBuffer);
-        }
+        }*/
     }
 
 }

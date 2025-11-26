@@ -6,5 +6,5 @@ CXX_DEFINES =
 
 CXX_INCLUDES = -I/home/andrewbyi/Personal/VulkanTest/external -I/home/andrewbyi/Personal/VulkanTest/src -I/home/andrewbyi/Personal/VulkanTest/external/tinyobjloader
 
-CXX_FLAGS = 
+CXX_FLAGS = -g
 

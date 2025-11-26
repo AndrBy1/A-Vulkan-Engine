@@ -19,7 +19,6 @@ namespace ave{
             glm::vec3 color{};
             glm::vec3 normal{};
             glm::vec2 uv{};
-            glm::vec2 texCoord{}; //added for texture coordinates
             
             static std::vector<VkVertexInputBindingDescription> getBindingDescriptions();
             static std::vector<VkVertexInputAttributeDescription> getAttributeDescriptions();
@@ -45,20 +44,21 @@ namespace ave{
 
         static std::unique_ptr<AveModel> createModelFromFile(AveDevice &device, const std::string& filepath);
         void attachTextureFromFile(const std::string& filepath);
+        void setTextureDescriptor(VkDescriptorSet descriptor);
 
         void bind(VkCommandBuffer commandBuffer);
         void draw(VkCommandBuffer commandBuffer);   
 
-        AveImage& getTextureImage(){ return textureImage; };
+        AveImage& getTextureImage(){ return *textureImage; };
         VkDescriptorSet getTextureDescriptor() const { return textureDescriptor; }
-        void setTextureDescriptor(VkDescriptorSet descriptor) {textureDescriptor = descriptor; }
 
         private:
         void createVertexBuffers(const std::vector<Vertex> &vertices);
         void createIndexBuffers(const std::vector<uint32_t> &indices);
 
         AveDevice& aveDevice;
-        AveImage& textureImage = *new AveImage(aveDevice); //default texture image if none provided. maybe swap to unique pointer if necessary
+        //AveImage& textureImage = *new AveImage(aveDevice); //default texture image if none provided. maybe swap to unique pointer if necessary
+        std::unique_ptr<AveImage> textureImage;
         //VkBuffer is a raw block of memory on the GPU (or CPU) that you can use to store any kind of data — vertices, indices, uniform values, staging data, etc.
         std::unique_ptr<AveBuffer> vertexBuffer;
         uint32_t vertexCount;

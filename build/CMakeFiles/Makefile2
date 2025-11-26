@@ -82,7 +82,7 @@ clean: CMakeFiles/Shaders.dir/clean
 CMakeFiles/VkeEngine.dir/all:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/VkeEngine.dir/build.make CMakeFiles/VkeEngine.dir/depend
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/VkeEngine.dir/build.make CMakeFiles/VkeEngine.dir/build
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/andrewbyi/Personal/VulkanTest/build/CMakeFiles --progress-num=5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21 "Built target VkeEngine"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/andrewbyi/Personal/VulkanTest/build/CMakeFiles --progress-num=7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23 "Built target VkeEngine"
 .PHONY : CMakeFiles/VkeEngine.dir/all
 
 # Build rule for subdir invocation for target.
@@ -108,12 +108,12 @@ CMakeFiles/VkeEngine.dir/clean:
 CMakeFiles/Shaders.dir/all:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/Shaders.dir/build.make CMakeFiles/Shaders.dir/depend
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/Shaders.dir/build.make CMakeFiles/Shaders.dir/build
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/andrewbyi/Personal/VulkanTest/build/CMakeFiles --progress-num=1,2,3,4 "Built target Shaders"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/andrewbyi/Personal/VulkanTest/build/CMakeFiles --progress-num=1,2,3,4,5,6 "Built target Shaders"
 .PHONY : CMakeFiles/Shaders.dir/all
 
 # Build rule for subdir invocation for target.
 CMakeFiles/Shaders.dir/rule: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/andrewbyi/Personal/VulkanTest/build/CMakeFiles 4
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/andrewbyi/Personal/VulkanTest/build/CMakeFiles 6
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 CMakeFiles/Shaders.dir/all
 	$(CMAKE_COMMAND) -E cmake_progress_start /home/andrewbyi/Personal/VulkanTest/build/CMakeFiles 0
 .PHONY : CMakeFiles/Shaders.dir/rule

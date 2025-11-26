@@ -13,7 +13,7 @@ namespace ave {
     class SimpleRenderSystem {
         public:
 
-        SimpleRenderSystem(AveDevice& device, VkRenderPass renderPass, VkDescriptorSetLayout globalSetLayout);
+        SimpleRenderSystem(AveDevice& device, VkRenderPass renderPass, std::vector<VkDescriptorSetLayout> SetLayouts);
         ~SimpleRenderSystem();
 
         //becuase this is managing Vulkan objects for pipeline layout and command buffers, we should delete copy constructors 
@@ -25,13 +25,14 @@ namespace ave {
         VkPipelineLayout& getPipelineLayout() { return pipelineLayout; }
 
         private:
-        void createPipelineLayout(VkDescriptorSetLayout globalSetLayout);
+        void createPipelineLayout();
         void createPipeline(VkRenderPass renderPass);
 
         //order here matters
         AveDevice& aveDevice;
         //unique_ptr is a smart pointer that manages the lifetime of an object
         std::unique_ptr<AvePipeline> avePipeline;
+        std::vector<VkDescriptorSetLayout> setLayouts;
         VkPipelineLayout pipelineLayout;
     };
 }

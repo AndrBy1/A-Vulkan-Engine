@@ -34,6 +34,7 @@ namespace ave {
         //order of declaration matters, need to be destroyed in reverse order of creation
         std::unique_ptr<AveDescriptorPool> globalPool{};
         std::vector<VkDescriptorImageInfo> imageInfos;
+        std::vector<VkDescriptorSetLayout> setLayouts;
         std::vector<AveModel> models;
 
         AveGameObject::Map gameObjects;
