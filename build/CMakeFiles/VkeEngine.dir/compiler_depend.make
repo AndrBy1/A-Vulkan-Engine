@@ -69,6 +69,7 @@ CMakeFiles/VkeEngine.dir/src/ave_buffer.cpp.o: ../src/ave_buffer.cpp \
   /usr/include/x86_64-linux-gnu/bits/types/FILE.h \
   /usr/include/x86_64-linux-gnu/bits/types/locale_t.h \
   /usr/include/x86_64-linux-gnu/bits/types/__locale_t.h \
+  /usr/include/x86_64-linux-gnu/bits/wchar2.h \
   /usr/include/c++/11/cstdint \
   /usr/include/c++/11/bits/allocator.h \
   /usr/include/x86_64-linux-gnu/c++/11/bits/c++allocator.h \
@@ -142,8 +143,11 @@ CMakeFiles/VkeEngine.dir/src/ave_buffer.cpp.o: ../src/ave_buffer.cpp \
   /usr/include/x86_64-linux-gnu/sys/select.h \
   /usr/include/x86_64-linux-gnu/bits/select.h \
   /usr/include/x86_64-linux-gnu/bits/types/sigset_t.h \
+  /usr/include/x86_64-linux-gnu/bits/select2.h \
   /usr/include/alloca.h \
+  /usr/include/x86_64-linux-gnu/bits/stdlib-bsearch.h \
   /usr/include/x86_64-linux-gnu/bits/stdlib-float.h \
+  /usr/include/x86_64-linux-gnu/bits/stdlib.h \
   /usr/include/c++/11/bits/std_abs.h \
   /usr/include/c++/11/cstdio \
   /usr/include/stdio.h \
@@ -152,6 +156,8 @@ CMakeFiles/VkeEngine.dir/src/ave_buffer.cpp.o: ../src/ave_buffer.cpp \
   /usr/include/x86_64-linux-gnu/bits/types/struct_FILE.h \
   /usr/include/x86_64-linux-gnu/bits/types/cookie_io_functions_t.h \
   /usr/include/x86_64-linux-gnu/bits/stdio_lim.h \
+  /usr/include/x86_64-linux-gnu/bits/stdio.h \
+  /usr/include/x86_64-linux-gnu/bits/stdio2.h \
   /usr/include/c++/11/cerrno \
   /usr/include/errno.h \
   /usr/include/x86_64-linux-gnu/bits/errno.h \
@@ -172,6 +178,8 @@ CMakeFiles/VkeEngine.dir/src/ave_buffer.cpp.o: ../src/ave_buffer.cpp \
   /usr/include/c++/11/cstring \
   /usr/include/string.h \
   /usr/include/strings.h \
+  /usr/include/x86_64-linux-gnu/bits/strings_fortified.h \
+  /usr/include/x86_64-linux-gnu/bits/string_fortified.h \
   /usr/include/c++/11/iostream \
   /usr/include/c++/11/ostream \
   /usr/include/c++/11/ios \
@@ -262,6 +270,7 @@ CMakeFiles/VkeEngine.dir/src/ave_camera.cpp.o: ../src/ave_camera.cpp \
   /usr/include/x86_64-linux-gnu/bits/types/__sigset_t.h \
   /usr/include/x86_64-linux-gnu/bits/types/struct_timeval.h \
   /usr/include/x86_64-linux-gnu/bits/types/struct_timespec.h \
+  /usr/include/x86_64-linux-gnu/bits/select2.h \
   /usr/include/x86_64-linux-gnu/bits/pthreadtypes.h \
   /usr/include/x86_64-linux-gnu/bits/thread-shared-types.h \
   /usr/include/x86_64-linux-gnu/bits/pthreadtypes-arch.h \
@@ -269,7 +278,9 @@ CMakeFiles/VkeEngine.dir/src/ave_camera.cpp.o: ../src/ave_camera.cpp \
   /usr/include/x86_64-linux-gnu/bits/struct_mutex.h \
   /usr/include/x86_64-linux-gnu/bits/struct_rwlock.h \
   /usr/include/alloca.h \
+  /usr/include/x86_64-linux-gnu/bits/stdlib-bsearch.h \
   /usr/include/x86_64-linux-gnu/bits/stdlib-float.h \
+  /usr/include/x86_64-linux-gnu/bits/stdlib.h \
   /usr/include/c++/11/bits/specfun.h \
   /usr/include/c++/11/bits/stl_algobase.h \
   /usr/include/c++/11/bits/functexcept.h \
@@ -522,6 +533,7 @@ CMakeFiles/VkeEngine.dir/src/ave_descriptors.cpp.o: ../src/ave_descriptors.cpp \
   /usr/include/x86_64-linux-gnu/bits/types/FILE.h \
   /usr/include/x86_64-linux-gnu/bits/types/locale_t.h \
   /usr/include/x86_64-linux-gnu/bits/types/__locale_t.h \
+  /usr/include/x86_64-linux-gnu/bits/wchar2.h \
   /usr/include/c++/11/cstdint \
   /usr/include/c++/11/bits/allocator.h \
   /usr/include/x86_64-linux-gnu/c++/11/bits/c++allocator.h \
@@ -595,8 +607,11 @@ CMakeFiles/VkeEngine.dir/src/ave_descriptors.cpp.o: ../src/ave_descriptors.cpp \
   /usr/include/x86_64-linux-gnu/sys/select.h \
   /usr/include/x86_64-linux-gnu/bits/select.h \
   /usr/include/x86_64-linux-gnu/bits/types/sigset_t.h \
+  /usr/include/x86_64-linux-gnu/bits/select2.h \
   /usr/include/alloca.h \
+  /usr/include/x86_64-linux-gnu/bits/stdlib-bsearch.h \
   /usr/include/x86_64-linux-gnu/bits/stdlib-float.h \
+  /usr/include/x86_64-linux-gnu/bits/stdlib.h \
   /usr/include/c++/11/bits/std_abs.h \
   /usr/include/c++/11/cstdio \
   /usr/include/stdio.h \
@@ -605,6 +620,8 @@ CMakeFiles/VkeEngine.dir/src/ave_descriptors.cpp.o: ../src/ave_descriptors.cpp \
   /usr/include/x86_64-linux-gnu/bits/types/struct_FILE.h \
   /usr/include/x86_64-linux-gnu/bits/types/cookie_io_functions_t.h \
   /usr/include/x86_64-linux-gnu/bits/stdio_lim.h \
+  /usr/include/x86_64-linux-gnu/bits/stdio.h \
+  /usr/include/x86_64-linux-gnu/bits/stdio2.h \
   /usr/include/c++/11/cerrno \
   /usr/include/errno.h \
   /usr/include/x86_64-linux-gnu/bits/errno.h \
@@ -750,6 +767,7 @@ CMakeFiles/VkeEngine.dir/src/ave_device.cpp.o: ../src/ave_device.cpp \
   /usr/include/x86_64-linux-gnu/bits/types/FILE.h \
   /usr/include/x86_64-linux-gnu/bits/types/locale_t.h \
   /usr/include/x86_64-linux-gnu/bits/types/__locale_t.h \
+  /usr/include/x86_64-linux-gnu/bits/wchar2.h \
   /usr/include/c++/11/cstdint \
   /usr/include/c++/11/bits/allocator.h \
   /usr/include/x86_64-linux-gnu/c++/11/bits/c++allocator.h \
@@ -823,8 +841,11 @@ CMakeFiles/VkeEngine.dir/src/ave_device.cpp.o: ../src/ave_device.cpp \
   /usr/include/x86_64-linux-gnu/sys/select.h \
   /usr/include/x86_64-linux-gnu/bits/select.h \
   /usr/include/x86_64-linux-gnu/bits/types/sigset_t.h \
+  /usr/include/x86_64-linux-gnu/bits/select2.h \
   /usr/include/alloca.h \
+  /usr/include/x86_64-linux-gnu/bits/stdlib-bsearch.h \
   /usr/include/x86_64-linux-gnu/bits/stdlib-float.h \
+  /usr/include/x86_64-linux-gnu/bits/stdlib.h \
   /usr/include/c++/11/bits/std_abs.h \
   /usr/include/c++/11/cstdio \
   /usr/include/stdio.h \
@@ -833,6 +854,8 @@ CMakeFiles/VkeEngine.dir/src/ave_device.cpp.o: ../src/ave_device.cpp \
   /usr/include/x86_64-linux-gnu/bits/types/struct_FILE.h \
   /usr/include/x86_64-linux-gnu/bits/types/cookie_io_functions_t.h \
   /usr/include/x86_64-linux-gnu/bits/stdio_lim.h \
+  /usr/include/x86_64-linux-gnu/bits/stdio.h \
+  /usr/include/x86_64-linux-gnu/bits/stdio2.h \
   /usr/include/c++/11/cerrno \
   /usr/include/errno.h \
   /usr/include/x86_64-linux-gnu/bits/errno.h \
@@ -851,6 +874,8 @@ CMakeFiles/VkeEngine.dir/src/ave_device.cpp.o: ../src/ave_device.cpp \
   /usr/include/c++/11/cstring \
   /usr/include/string.h \
   /usr/include/strings.h \
+  /usr/include/x86_64-linux-gnu/bits/strings_fortified.h \
+  /usr/include/x86_64-linux-gnu/bits/string_fortified.h \
   /usr/include/c++/11/iostream \
   /usr/include/c++/11/ostream \
   /usr/include/c++/11/ios \
@@ -970,6 +995,7 @@ CMakeFiles/VkeEngine.dir/src/ave_game_object.cpp.o: ../src/ave_game_object.cpp \
   /usr/include/x86_64-linux-gnu/bits/types/FILE.h \
   /usr/include/x86_64-linux-gnu/bits/types/locale_t.h \
   /usr/include/x86_64-linux-gnu/bits/types/__locale_t.h \
+  /usr/include/x86_64-linux-gnu/bits/wchar2.h \
   /usr/include/c++/11/cstdint \
   /usr/include/c++/11/bits/allocator.h \
   /usr/include/x86_64-linux-gnu/c++/11/bits/c++allocator.h \
@@ -1043,8 +1069,11 @@ CMakeFiles/VkeEngine.dir/src/ave_game_object.cpp.o: ../src/ave_game_object.cpp \
   /usr/include/x86_64-linux-gnu/sys/select.h \
   /usr/include/x86_64-linux-gnu/bits/select.h \
   /usr/include/x86_64-linux-gnu/bits/types/sigset_t.h \
+  /usr/include/x86_64-linux-gnu/bits/select2.h \
   /usr/include/alloca.h \
+  /usr/include/x86_64-linux-gnu/bits/stdlib-bsearch.h \
   /usr/include/x86_64-linux-gnu/bits/stdlib-float.h \
+  /usr/include/x86_64-linux-gnu/bits/stdlib.h \
   /usr/include/c++/11/bits/std_abs.h \
   /usr/include/c++/11/cstdio \
   /usr/include/stdio.h \
@@ -1053,6 +1082,8 @@ CMakeFiles/VkeEngine.dir/src/ave_game_object.cpp.o: ../src/ave_game_object.cpp \
   /usr/include/x86_64-linux-gnu/bits/types/struct_FILE.h \
   /usr/include/x86_64-linux-gnu/bits/types/cookie_io_functions_t.h \
   /usr/include/x86_64-linux-gnu/bits/stdio_lim.h \
+  /usr/include/x86_64-linux-gnu/bits/stdio.h \
+  /usr/include/x86_64-linux-gnu/bits/stdio2.h \
   /usr/include/c++/11/cerrno \
   /usr/include/errno.h \
   /usr/include/x86_64-linux-gnu/bits/errno.h \
@@ -1362,6 +1393,7 @@ CMakeFiles/VkeEngine.dir/src/ave_image.cpp.o: ../src/ave_image.cpp \
   /usr/include/x86_64-linux-gnu/bits/types/FILE.h \
   /usr/include/x86_64-linux-gnu/bits/types/locale_t.h \
   /usr/include/x86_64-linux-gnu/bits/types/__locale_t.h \
+  /usr/include/x86_64-linux-gnu/bits/wchar2.h \
   /usr/include/c++/11/cstdint \
   /usr/include/c++/11/bits/allocator.h \
   /usr/include/x86_64-linux-gnu/c++/11/bits/c++allocator.h \
@@ -1435,8 +1467,11 @@ CMakeFiles/VkeEngine.dir/src/ave_image.cpp.o: ../src/ave_image.cpp \
   /usr/include/x86_64-linux-gnu/sys/select.h \
   /usr/include/x86_64-linux-gnu/bits/select.h \
   /usr/include/x86_64-linux-gnu/bits/types/sigset_t.h \
+  /usr/include/x86_64-linux-gnu/bits/select2.h \
   /usr/include/alloca.h \
+  /usr/include/x86_64-linux-gnu/bits/stdlib-bsearch.h \
   /usr/include/x86_64-linux-gnu/bits/stdlib-float.h \
+  /usr/include/x86_64-linux-gnu/bits/stdlib.h \
   /usr/include/c++/11/bits/std_abs.h \
   /usr/include/c++/11/cstdio \
   /usr/include/stdio.h \
@@ -1445,6 +1480,8 @@ CMakeFiles/VkeEngine.dir/src/ave_image.cpp.o: ../src/ave_image.cpp \
   /usr/include/x86_64-linux-gnu/bits/types/struct_FILE.h \
   /usr/include/x86_64-linux-gnu/bits/types/cookie_io_functions_t.h \
   /usr/include/x86_64-linux-gnu/bits/stdio_lim.h \
+  /usr/include/x86_64-linux-gnu/bits/stdio.h \
+  /usr/include/x86_64-linux-gnu/bits/stdio2.h \
   /usr/include/c++/11/cerrno \
   /usr/include/errno.h \
   /usr/include/x86_64-linux-gnu/bits/errno.h \
@@ -1501,6 +1538,8 @@ CMakeFiles/VkeEngine.dir/src/ave_image.cpp.o: ../src/ave_image.cpp \
   /usr/include/c++/11/stdlib.h \
   /usr/include/string.h \
   /usr/include/strings.h \
+  /usr/include/x86_64-linux-gnu/bits/strings_fortified.h \
+  /usr/include/x86_64-linux-gnu/bits/string_fortified.h \
   /usr/lib/gcc/x86_64-linux-gnu/11/include/limits.h \
   /usr/lib/gcc/x86_64-linux-gnu/11/include/syslimits.h \
   /usr/include/limits.h \
@@ -1636,6 +1675,7 @@ CMakeFiles/VkeEngine.dir/src/ave_model.cpp.o: ../src/ave_model.cpp \
   /usr/include/x86_64-linux-gnu/bits/types/FILE.h \
   /usr/include/x86_64-linux-gnu/bits/types/locale_t.h \
   /usr/include/x86_64-linux-gnu/bits/types/__locale_t.h \
+  /usr/include/x86_64-linux-gnu/bits/wchar2.h \
   /usr/include/c++/11/cstdint \
   /usr/include/c++/11/bits/allocator.h \
   /usr/include/x86_64-linux-gnu/c++/11/bits/c++allocator.h \
@@ -1709,8 +1749,11 @@ CMakeFiles/VkeEngine.dir/src/ave_model.cpp.o: ../src/ave_model.cpp \
   /usr/include/x86_64-linux-gnu/sys/select.h \
   /usr/include/x86_64-linux-gnu/bits/select.h \
   /usr/include/x86_64-linux-gnu/bits/types/sigset_t.h \
+  /usr/include/x86_64-linux-gnu/bits/select2.h \
   /usr/include/alloca.h \
+  /usr/include/x86_64-linux-gnu/bits/stdlib-bsearch.h \
   /usr/include/x86_64-linux-gnu/bits/stdlib-float.h \
+  /usr/include/x86_64-linux-gnu/bits/stdlib.h \
   /usr/include/c++/11/bits/std_abs.h \
   /usr/include/c++/11/cstdio \
   /usr/include/stdio.h \
@@ -1719,6 +1762,8 @@ CMakeFiles/VkeEngine.dir/src/ave_model.cpp.o: ../src/ave_model.cpp \
   /usr/include/x86_64-linux-gnu/bits/types/struct_FILE.h \
   /usr/include/x86_64-linux-gnu/bits/types/cookie_io_functions_t.h \
   /usr/include/x86_64-linux-gnu/bits/stdio_lim.h \
+  /usr/include/x86_64-linux-gnu/bits/stdio.h \
+  /usr/include/x86_64-linux-gnu/bits/stdio2.h \
   /usr/include/c++/11/cerrno \
   /usr/include/errno.h \
   /usr/include/x86_64-linux-gnu/bits/errno.h \
@@ -1961,6 +2006,8 @@ CMakeFiles/VkeEngine.dir/src/ave_model.cpp.o: ../src/ave_model.cpp \
   /usr/include/c++/11/cstring \
   /usr/include/string.h \
   /usr/include/strings.h \
+  /usr/include/x86_64-linux-gnu/bits/strings_fortified.h \
+  /usr/include/x86_64-linux-gnu/bits/string_fortified.h \
   /usr/include/c++/11/fstream \
   /usr/include/c++/11/istream \
   /usr/include/c++/11/ios \
@@ -2115,6 +2162,7 @@ CMakeFiles/VkeEngine.dir/src/ave_pipeline.cpp.o: ../src/ave_pipeline.cpp \
   /usr/include/x86_64-linux-gnu/bits/types/FILE.h \
   /usr/include/x86_64-linux-gnu/bits/types/locale_t.h \
   /usr/include/x86_64-linux-gnu/bits/types/__locale_t.h \
+  /usr/include/x86_64-linux-gnu/bits/wchar2.h \
   /usr/include/c++/11/cstdint \
   /usr/include/c++/11/bits/allocator.h \
   /usr/include/x86_64-linux-gnu/c++/11/bits/c++allocator.h \
@@ -2188,8 +2236,11 @@ CMakeFiles/VkeEngine.dir/src/ave_pipeline.cpp.o: ../src/ave_pipeline.cpp \
   /usr/include/x86_64-linux-gnu/sys/select.h \
   /usr/include/x86_64-linux-gnu/bits/select.h \
   /usr/include/x86_64-linux-gnu/bits/types/sigset_t.h \
+  /usr/include/x86_64-linux-gnu/bits/select2.h \
   /usr/include/alloca.h \
+  /usr/include/x86_64-linux-gnu/bits/stdlib-bsearch.h \
   /usr/include/x86_64-linux-gnu/bits/stdlib-float.h \
+  /usr/include/x86_64-linux-gnu/bits/stdlib.h \
   /usr/include/c++/11/bits/std_abs.h \
   /usr/include/c++/11/cstdio \
   /usr/include/stdio.h \
@@ -2198,6 +2249,8 @@ CMakeFiles/VkeEngine.dir/src/ave_pipeline.cpp.o: ../src/ave_pipeline.cpp \
   /usr/include/x86_64-linux-gnu/bits/types/struct_FILE.h \
   /usr/include/x86_64-linux-gnu/bits/types/cookie_io_functions_t.h \
   /usr/include/x86_64-linux-gnu/bits/stdio_lim.h \
+  /usr/include/x86_64-linux-gnu/bits/stdio.h \
+  /usr/include/x86_64-linux-gnu/bits/stdio2.h \
   /usr/include/c++/11/cerrno \
   /usr/include/errno.h \
   /usr/include/x86_64-linux-gnu/bits/errno.h \
@@ -2525,6 +2578,7 @@ CMakeFiles/VkeEngine.dir/src/ave_renderer.cpp.o: ../src/ave_renderer.cpp \
   /usr/include/x86_64-linux-gnu/bits/types/FILE.h \
   /usr/include/x86_64-linux-gnu/bits/types/locale_t.h \
   /usr/include/x86_64-linux-gnu/bits/types/__locale_t.h \
+  /usr/include/x86_64-linux-gnu/bits/wchar2.h \
   /usr/include/c++/11/cstdint \
   /usr/include/c++/11/bits/allocator.h \
   /usr/include/x86_64-linux-gnu/c++/11/bits/c++allocator.h \
@@ -2598,8 +2652,11 @@ CMakeFiles/VkeEngine.dir/src/ave_renderer.cpp.o: ../src/ave_renderer.cpp \
   /usr/include/x86_64-linux-gnu/sys/select.h \
   /usr/include/x86_64-linux-gnu/bits/select.h \
   /usr/include/x86_64-linux-gnu/bits/types/sigset_t.h \
+  /usr/include/x86_64-linux-gnu/bits/select2.h \
   /usr/include/alloca.h \
+  /usr/include/x86_64-linux-gnu/bits/stdlib-bsearch.h \
   /usr/include/x86_64-linux-gnu/bits/stdlib-float.h \
+  /usr/include/x86_64-linux-gnu/bits/stdlib.h \
   /usr/include/c++/11/bits/std_abs.h \
   /usr/include/c++/11/cstdio \
   /usr/include/stdio.h \
@@ -2608,6 +2665,8 @@ CMakeFiles/VkeEngine.dir/src/ave_renderer.cpp.o: ../src/ave_renderer.cpp \
   /usr/include/x86_64-linux-gnu/bits/types/struct_FILE.h \
   /usr/include/x86_64-linux-gnu/bits/types/cookie_io_functions_t.h \
   /usr/include/x86_64-linux-gnu/bits/stdio_lim.h \
+  /usr/include/x86_64-linux-gnu/bits/stdio.h \
+  /usr/include/x86_64-linux-gnu/bits/stdio2.h \
   /usr/include/c++/11/cerrno \
   /usr/include/errno.h \
   /usr/include/x86_64-linux-gnu/bits/errno.h \
@@ -2926,6 +2985,7 @@ CMakeFiles/VkeEngine.dir/src/ave_swap_chain.cpp.o: ../src/ave_swap_chain.cpp \
   /usr/include/x86_64-linux-gnu/bits/types/FILE.h \
   /usr/include/x86_64-linux-gnu/bits/types/locale_t.h \
   /usr/include/x86_64-linux-gnu/bits/types/__locale_t.h \
+  /usr/include/x86_64-linux-gnu/bits/wchar2.h \
   /usr/include/c++/11/cstdint \
   /usr/include/c++/11/bits/allocator.h \
   /usr/include/x86_64-linux-gnu/c++/11/bits/c++allocator.h \
@@ -2999,8 +3059,11 @@ CMakeFiles/VkeEngine.dir/src/ave_swap_chain.cpp.o: ../src/ave_swap_chain.cpp \
   /usr/include/x86_64-linux-gnu/sys/select.h \
   /usr/include/x86_64-linux-gnu/bits/select.h \
   /usr/include/x86_64-linux-gnu/bits/types/sigset_t.h \
+  /usr/include/x86_64-linux-gnu/bits/select2.h \
   /usr/include/alloca.h \
+  /usr/include/x86_64-linux-gnu/bits/stdlib-bsearch.h \
   /usr/include/x86_64-linux-gnu/bits/stdlib-float.h \
+  /usr/include/x86_64-linux-gnu/bits/stdlib.h \
   /usr/include/c++/11/bits/std_abs.h \
   /usr/include/c++/11/cstdio \
   /usr/include/stdio.h \
@@ -3009,6 +3072,8 @@ CMakeFiles/VkeEngine.dir/src/ave_swap_chain.cpp.o: ../src/ave_swap_chain.cpp \
   /usr/include/x86_64-linux-gnu/bits/types/struct_FILE.h \
   /usr/include/x86_64-linux-gnu/bits/types/cookie_io_functions_t.h \
   /usr/include/x86_64-linux-gnu/bits/stdio_lim.h \
+  /usr/include/x86_64-linux-gnu/bits/stdio.h \
+  /usr/include/x86_64-linux-gnu/bits/stdio2.h \
   /usr/include/c++/11/cerrno \
   /usr/include/errno.h \
   /usr/include/x86_64-linux-gnu/bits/errno.h \
@@ -3056,6 +3121,8 @@ CMakeFiles/VkeEngine.dir/src/ave_swap_chain.cpp.o: ../src/ave_swap_chain.cpp \
   /usr/include/c++/11/cstring \
   /usr/include/string.h \
   /usr/include/strings.h \
+  /usr/include/x86_64-linux-gnu/bits/strings_fortified.h \
+  /usr/include/x86_64-linux-gnu/bits/string_fortified.h \
   /usr/include/c++/11/iostream \
   /usr/include/c++/11/ostream \
   /usr/include/c++/11/ios \
@@ -3154,6 +3221,7 @@ CMakeFiles/VkeEngine.dir/src/ave_window.cpp.o: ../src/ave_window.cpp \
   /usr/include/x86_64-linux-gnu/bits/types/FILE.h \
   /usr/include/x86_64-linux-gnu/bits/types/locale_t.h \
   /usr/include/x86_64-linux-gnu/bits/types/__locale_t.h \
+  /usr/include/x86_64-linux-gnu/bits/wchar2.h \
   /usr/include/c++/11/cstdint \
   /usr/include/c++/11/bits/allocator.h \
   /usr/include/x86_64-linux-gnu/c++/11/bits/c++allocator.h \
@@ -3227,8 +3295,11 @@ CMakeFiles/VkeEngine.dir/src/ave_window.cpp.o: ../src/ave_window.cpp \
   /usr/include/x86_64-linux-gnu/sys/select.h \
   /usr/include/x86_64-linux-gnu/bits/select.h \
   /usr/include/x86_64-linux-gnu/bits/types/sigset_t.h \
+  /usr/include/x86_64-linux-gnu/bits/select2.h \
   /usr/include/alloca.h \
+  /usr/include/x86_64-linux-gnu/bits/stdlib-bsearch.h \
   /usr/include/x86_64-linux-gnu/bits/stdlib-float.h \
+  /usr/include/x86_64-linux-gnu/bits/stdlib.h \
   /usr/include/c++/11/bits/std_abs.h \
   /usr/include/c++/11/cstdio \
   /usr/include/stdio.h \
@@ -3237,6 +3308,8 @@ CMakeFiles/VkeEngine.dir/src/ave_window.cpp.o: ../src/ave_window.cpp \
   /usr/include/x86_64-linux-gnu/bits/types/struct_FILE.h \
   /usr/include/x86_64-linux-gnu/bits/types/cookie_io_functions_t.h \
   /usr/include/x86_64-linux-gnu/bits/stdio_lim.h \
+  /usr/include/x86_64-linux-gnu/bits/stdio.h \
+  /usr/include/x86_64-linux-gnu/bits/stdio2.h \
   /usr/include/c++/11/cerrno \
   /usr/include/errno.h \
   /usr/include/x86_64-linux-gnu/bits/errno.h \
@@ -3321,6 +3394,7 @@ CMakeFiles/VkeEngine.dir/src/first_app.cpp.o: ../src/first_app.cpp \
   /usr/include/x86_64-linux-gnu/bits/types/FILE.h \
   /usr/include/x86_64-linux-gnu/bits/types/locale_t.h \
   /usr/include/x86_64-linux-gnu/bits/types/__locale_t.h \
+  /usr/include/x86_64-linux-gnu/bits/wchar2.h \
   /usr/include/c++/11/cstdint \
   /usr/include/c++/11/bits/allocator.h \
   /usr/include/x86_64-linux-gnu/c++/11/bits/c++allocator.h \
@@ -3394,8 +3468,11 @@ CMakeFiles/VkeEngine.dir/src/first_app.cpp.o: ../src/first_app.cpp \
   /usr/include/x86_64-linux-gnu/sys/select.h \
   /usr/include/x86_64-linux-gnu/bits/select.h \
   /usr/include/x86_64-linux-gnu/bits/types/sigset_t.h \
+  /usr/include/x86_64-linux-gnu/bits/select2.h \
   /usr/include/alloca.h \
+  /usr/include/x86_64-linux-gnu/bits/stdlib-bsearch.h \
   /usr/include/x86_64-linux-gnu/bits/stdlib-float.h \
+  /usr/include/x86_64-linux-gnu/bits/stdlib.h \
   /usr/include/c++/11/bits/std_abs.h \
   /usr/include/c++/11/cstdio \
   /usr/include/stdio.h \
@@ -3404,6 +3481,8 @@ CMakeFiles/VkeEngine.dir/src/first_app.cpp.o: ../src/first_app.cpp \
   /usr/include/x86_64-linux-gnu/bits/types/struct_FILE.h \
   /usr/include/x86_64-linux-gnu/bits/types/cookie_io_functions_t.h \
   /usr/include/x86_64-linux-gnu/bits/stdio_lim.h \
+  /usr/include/x86_64-linux-gnu/bits/stdio.h \
+  /usr/include/x86_64-linux-gnu/bits/stdio2.h \
   /usr/include/c++/11/cerrno \
   /usr/include/errno.h \
   /usr/include/x86_64-linux-gnu/bits/errno.h \
@@ -3757,6 +3836,7 @@ CMakeFiles/VkeEngine.dir/src/keyboard_movement_controller.cpp.o: ../src/keyboard
   /usr/include/x86_64-linux-gnu/bits/types/FILE.h \
   /usr/include/x86_64-linux-gnu/bits/types/locale_t.h \
   /usr/include/x86_64-linux-gnu/bits/types/__locale_t.h \
+  /usr/include/x86_64-linux-gnu/bits/wchar2.h \
   /usr/include/c++/11/cstdint \
   /usr/include/c++/11/bits/allocator.h \
   /usr/include/x86_64-linux-gnu/c++/11/bits/c++allocator.h \
@@ -3830,8 +3910,11 @@ CMakeFiles/VkeEngine.dir/src/keyboard_movement_controller.cpp.o: ../src/keyboard
   /usr/include/x86_64-linux-gnu/sys/select.h \
   /usr/include/x86_64-linux-gnu/bits/select.h \
   /usr/include/x86_64-linux-gnu/bits/types/sigset_t.h \
+  /usr/include/x86_64-linux-gnu/bits/select2.h \
   /usr/include/alloca.h \
+  /usr/include/x86_64-linux-gnu/bits/stdlib-bsearch.h \
   /usr/include/x86_64-linux-gnu/bits/stdlib-float.h \
+  /usr/include/x86_64-linux-gnu/bits/stdlib.h \
   /usr/include/c++/11/bits/std_abs.h \
   /usr/include/c++/11/cstdio \
   /usr/include/stdio.h \
@@ -3840,6 +3923,8 @@ CMakeFiles/VkeEngine.dir/src/keyboard_movement_controller.cpp.o: ../src/keyboard
   /usr/include/x86_64-linux-gnu/bits/types/struct_FILE.h \
   /usr/include/x86_64-linux-gnu/bits/types/cookie_io_functions_t.h \
   /usr/include/x86_64-linux-gnu/bits/stdio_lim.h \
+  /usr/include/x86_64-linux-gnu/bits/stdio.h \
+  /usr/include/x86_64-linux-gnu/bits/stdio2.h \
   /usr/include/c++/11/cerrno \
   /usr/include/errno.h \
   /usr/include/x86_64-linux-gnu/bits/errno.h \
@@ -4147,6 +4232,7 @@ CMakeFiles/VkeEngine.dir/src/main.cpp.o: ../src/main.cpp \
   /usr/include/x86_64-linux-gnu/bits/types/FILE.h \
   /usr/include/x86_64-linux-gnu/bits/types/locale_t.h \
   /usr/include/x86_64-linux-gnu/bits/types/__locale_t.h \
+  /usr/include/x86_64-linux-gnu/bits/wchar2.h \
   /usr/include/c++/11/cstdint \
   /usr/include/c++/11/bits/allocator.h \
   /usr/include/x86_64-linux-gnu/c++/11/bits/c++allocator.h \
@@ -4220,8 +4306,11 @@ CMakeFiles/VkeEngine.dir/src/main.cpp.o: ../src/main.cpp \
   /usr/include/x86_64-linux-gnu/sys/select.h \
   /usr/include/x86_64-linux-gnu/bits/select.h \
   /usr/include/x86_64-linux-gnu/bits/types/sigset_t.h \
+  /usr/include/x86_64-linux-gnu/bits/select2.h \
   /usr/include/alloca.h \
+  /usr/include/x86_64-linux-gnu/bits/stdlib-bsearch.h \
   /usr/include/x86_64-linux-gnu/bits/stdlib-float.h \
+  /usr/include/x86_64-linux-gnu/bits/stdlib.h \
   /usr/include/c++/11/bits/std_abs.h \
   /usr/include/c++/11/cstdio \
   /usr/include/stdio.h \
@@ -4230,6 +4319,8 @@ CMakeFiles/VkeEngine.dir/src/main.cpp.o: ../src/main.cpp \
   /usr/include/x86_64-linux-gnu/bits/types/struct_FILE.h \
   /usr/include/x86_64-linux-gnu/bits/types/cookie_io_functions_t.h \
   /usr/include/x86_64-linux-gnu/bits/stdio_lim.h \
+  /usr/include/x86_64-linux-gnu/bits/stdio.h \
+  /usr/include/x86_64-linux-gnu/bits/stdio2.h \
   /usr/include/c++/11/cerrno \
   /usr/include/errno.h \
   /usr/include/x86_64-linux-gnu/bits/errno.h \
@@ -4562,6 +4653,7 @@ CMakeFiles/VkeEngine.dir/src/systems/point_light_system.cpp.o: ../src/systems/po
   /usr/include/x86_64-linux-gnu/bits/types/__sigset_t.h \
   /usr/include/x86_64-linux-gnu/bits/types/struct_timeval.h \
   /usr/include/x86_64-linux-gnu/bits/types/struct_timespec.h \
+  /usr/include/x86_64-linux-gnu/bits/select2.h \
   /usr/include/x86_64-linux-gnu/bits/pthreadtypes.h \
   /usr/include/x86_64-linux-gnu/bits/thread-shared-types.h \
   /usr/include/x86_64-linux-gnu/bits/pthreadtypes-arch.h \
@@ -4569,7 +4661,9 @@ CMakeFiles/VkeEngine.dir/src/systems/point_light_system.cpp.o: ../src/systems/po
   /usr/include/x86_64-linux-gnu/bits/struct_mutex.h \
   /usr/include/x86_64-linux-gnu/bits/struct_rwlock.h \
   /usr/include/alloca.h \
+  /usr/include/x86_64-linux-gnu/bits/stdlib-bsearch.h \
   /usr/include/x86_64-linux-gnu/bits/stdlib-float.h \
+  /usr/include/x86_64-linux-gnu/bits/stdlib.h \
   /usr/include/c++/11/bits/specfun.h \
   /usr/include/c++/11/bits/stl_algobase.h \
   /usr/include/c++/11/bits/functexcept.h \
@@ -4776,6 +4870,7 @@ CMakeFiles/VkeEngine.dir/src/systems/point_light_system.cpp.o: ../src/systems/po
   /usr/include/x86_64-linux-gnu/bits/types/__mbstate_t.h \
   /usr/include/x86_64-linux-gnu/bits/types/__FILE.h \
   /usr/include/x86_64-linux-gnu/bits/types/FILE.h \
+  /usr/include/x86_64-linux-gnu/bits/wchar2.h \
   /usr/include/c++/11/bits/allocator.h \
   /usr/include/x86_64-linux-gnu/c++/11/bits/c++allocator.h \
   /usr/include/c++/11/ext/new_allocator.h \
@@ -4829,6 +4924,8 @@ CMakeFiles/VkeEngine.dir/src/systems/point_light_system.cpp.o: ../src/systems/po
   /usr/include/x86_64-linux-gnu/bits/types/struct_FILE.h \
   /usr/include/x86_64-linux-gnu/bits/types/cookie_io_functions_t.h \
   /usr/include/x86_64-linux-gnu/bits/stdio_lim.h \
+  /usr/include/x86_64-linux-gnu/bits/stdio.h \
+  /usr/include/x86_64-linux-gnu/bits/stdio2.h \
   /usr/include/c++/11/cerrno \
   /usr/include/errno.h \
   /usr/include/x86_64-linux-gnu/bits/errno.h \
@@ -4988,6 +5085,7 @@ CMakeFiles/VkeEngine.dir/src/systems/simple_render_system.cpp.o: ../src/systems/
   /usr/include/x86_64-linux-gnu/bits/types/__sigset_t.h \
   /usr/include/x86_64-linux-gnu/bits/types/struct_timeval.h \
   /usr/include/x86_64-linux-gnu/bits/types/struct_timespec.h \
+  /usr/include/x86_64-linux-gnu/bits/select2.h \
   /usr/include/x86_64-linux-gnu/bits/pthreadtypes.h \
   /usr/include/x86_64-linux-gnu/bits/thread-shared-types.h \
   /usr/include/x86_64-linux-gnu/bits/pthreadtypes-arch.h \
@@ -4995,7 +5093,9 @@ CMakeFiles/VkeEngine.dir/src/systems/simple_render_system.cpp.o: ../src/systems/
   /usr/include/x86_64-linux-gnu/bits/struct_mutex.h \
   /usr/include/x86_64-linux-gnu/bits/struct_rwlock.h \
   /usr/include/alloca.h \
+  /usr/include/x86_64-linux-gnu/bits/stdlib-bsearch.h \
   /usr/include/x86_64-linux-gnu/bits/stdlib-float.h \
+  /usr/include/x86_64-linux-gnu/bits/stdlib.h \
   /usr/include/c++/11/bits/specfun.h \
   /usr/include/c++/11/bits/stl_algobase.h \
   /usr/include/c++/11/bits/functexcept.h \
@@ -5202,6 +5302,7 @@ CMakeFiles/VkeEngine.dir/src/systems/simple_render_system.cpp.o: ../src/systems/
   /usr/include/x86_64-linux-gnu/bits/types/__mbstate_t.h \
   /usr/include/x86_64-linux-gnu/bits/types/__FILE.h \
   /usr/include/x86_64-linux-gnu/bits/types/FILE.h \
+  /usr/include/x86_64-linux-gnu/bits/wchar2.h \
   /usr/include/c++/11/bits/allocator.h \
   /usr/include/x86_64-linux-gnu/c++/11/bits/c++allocator.h \
   /usr/include/c++/11/ext/new_allocator.h \
@@ -5255,6 +5356,8 @@ CMakeFiles/VkeEngine.dir/src/systems/simple_render_system.cpp.o: ../src/systems/
   /usr/include/x86_64-linux-gnu/bits/types/struct_FILE.h \
   /usr/include/x86_64-linux-gnu/bits/types/cookie_io_functions_t.h \
   /usr/include/x86_64-linux-gnu/bits/stdio_lim.h \
+  /usr/include/x86_64-linux-gnu/bits/stdio.h \
+  /usr/include/x86_64-linux-gnu/bits/stdio2.h \
   /usr/include/c++/11/cerrno \
   /usr/include/errno.h \
   /usr/include/x86_64-linux-gnu/bits/errno.h \
@@ -5430,8 +5533,6 @@ CMakeFiles/VkeEngine.dir/src/systems/simple_render_system.cpp.o: ../src/systems/
 
 /usr/include/glm/ext/scalar_constants.inl:
 
-/usr/include/glm/gtc/constants.hpp:
-
 /usr/include/glm/ext/matrix_projection.hpp:
 
 ../src/ave_image.hpp:
@@ -5481,8 +5582,6 @@ CMakeFiles/VkeEngine.dir/src/systems/simple_render_system.cpp.o: ../src/systems/
 /usr/include/c++/11/bits/std_function.h:
 
 /usr/include/c++/11/bits/stl_tempbuf.h:
-
-/usr/include/c++/11/memory:
 
 /usr/include/glm/integer.hpp:
 
@@ -5660,7 +5759,25 @@ CMakeFiles/VkeEngine.dir/src/systems/simple_render_system.cpp.o: ../src/systems/
 
 /usr/include/glm/ext/vector_int2_sized.hpp:
 
-/usr/include/c++/11/bits/functional_hash.h:
+/usr/include/glm/ext/vector_int2.hpp:
+
+/usr/include/glm/ext/vector_double2_precision.hpp:
+
+/usr/include/glm/ext/vector_relational.hpp:
+
+/usr/include/glm/gtx/hash.hpp:
+
+/usr/include/glm/ext/vector_float2_precision.hpp:
+
+/usr/include/glm/ext/vector_uint1_sized.hpp:
+
+/usr/include/glm/ext/vector_float2.hpp:
+
+/usr/include/c++/11/stdlib.h:
+
+/usr/include/glm/ext/vector_bool2_precision.hpp:
+
+/usr/include/glm/detail/compute_vector_relational.hpp:
 
 /usr/include/c++/11/bits/shared_ptr.h:
 
@@ -5724,14 +5841,6 @@ CMakeFiles/VkeEngine.dir/src/systems/simple_render_system.cpp.o: ../src/systems/
 
 /usr/include/x86_64-linux-gnu/gnu/stubs.h:
 
-/usr/include/glm/detail/type_vec3.hpp:
-
-/usr/include/c++/11/backward/binders.h:
-
-/usr/include/x86_64-linux-gnu/bits/time.h:
-
-/usr/include/x86_64-linux-gnu/bits/select.h:
-
 /usr/include/x86_64-linux-gnu/bits/endianness.h:
 
 /usr/include/glm/ext/matrix_float2x3_precision.hpp:
@@ -5762,6 +5871,20 @@ CMakeFiles/VkeEngine.dir/src/systems/simple_render_system.cpp.o: ../src/systems/
 
 ../src/ave_camera.cpp:
 
+/usr/include/glm/detail/type_vec3.hpp:
+
+/usr/include/c++/11/backward/binders.h:
+
+/usr/include/x86_64-linux-gnu/bits/time.h:
+
+/usr/include/x86_64-linux-gnu/bits/select.h:
+
+/usr/include/c++/11/bits/specfun.h:
+
+/usr/include/glm/gtc/matrix_transform.hpp:
+
+/usr/include/glm/simd/platform.h:
+
 /usr/include/x86_64-linux-gnu/bits/types/locale_t.h:
 
 /usr/include/x86_64-linux-gnu/bits/wctype-wchar.h:
@@ -5775,6 +5898,10 @@ CMakeFiles/VkeEngine.dir/src/systems/simple_render_system.cpp.o: ../src/systems/
 /usr/include/glm/detail/_fixes.hpp:
 
 /usr/include/x86_64-linux-gnu/bits/types/mbstate_t.h:
+
+/usr/include/glm/gtc/constants.hpp:
+
+/usr/include/x86_64-linux-gnu/bits/strings_fortified.h:
 
 /usr/include/x86_64-linux-gnu/bits/types/wint_t.h:
 
@@ -5838,9 +5965,9 @@ CMakeFiles/VkeEngine.dir/src/systems/simple_render_system.cpp.o: ../src/systems/
 
 /usr/include/x86_64-linux-gnu/c++/11/bits/c++locale.h:
 
-/usr/include/x86_64-linux-gnu/bits/xopen_lim.h:
-
 /usr/include/glm/detail/type_vec2.inl:
+
+/usr/include/x86_64-linux-gnu/bits/xopen_lim.h:
 
 /usr/include/c++/11/bits/stl_algobase.h:
 
@@ -5848,11 +5975,11 @@ CMakeFiles/VkeEngine.dir/src/systems/simple_render_system.cpp.o: ../src/systems/
 
 /usr/lib/gcc/x86_64-linux-gnu/11/include/stdint.h:
 
-/usr/include/c++/11/cwchar:
-
 /usr/include/glm/ext/quaternion_transform.hpp:
 
 /usr/include/x86_64-linux-gnu/bits/types/struct_timeval.h:
+
+/usr/include/x86_64-linux-gnu/bits/stdlib.h:
 
 /usr/include/x86_64-linux-gnu/asm/errno.h:
 
@@ -5878,10 +6005,6 @@ CMakeFiles/VkeEngine.dir/src/systems/simple_render_system.cpp.o: ../src/systems/
 
 /usr/local/include/GLFW/glfw3.h:
 
-/usr/include/glm/ext/vector_uint1_sized.hpp:
-
-/usr/include/glm/ext/vector_float2.hpp:
-
 ../src/ave_game_object.hpp:
 
 /usr/include/x86_64-linux-gnu/bits/timesize.h:
@@ -5905,6 +6028,10 @@ CMakeFiles/VkeEngine.dir/src/systems/simple_render_system.cpp.o: ../src/systems/
 /usr/include/x86_64-linux-gnu/sys/single_threaded.h:
 
 /usr/include/c++/11/type_traits:
+
+/usr/include/c++/11/memory:
+
+/usr/include/x86_64-linux-gnu/bits/string_fortified.h:
 
 /usr/include/c++/11/bits/memoryfwd.h:
 
@@ -6020,12 +6147,6 @@ CMakeFiles/VkeEngine.dir/src/systems/simple_render_system.cpp.o: ../src/systems/
 
 /usr/include/c++/11/bits/concept_check.h:
 
-/usr/include/glm/ext/vector_relational.hpp:
-
-/usr/include/glm/gtx/hash.hpp:
-
-/usr/include/glm/ext/vector_float2_precision.hpp:
-
 /usr/include/x86_64-linux-gnu/bits/struct_mutex.h:
 
 /usr/include/c++/11/bits/stl_iterator.h:
@@ -6045,6 +6166,8 @@ CMakeFiles/VkeEngine.dir/src/systems/simple_render_system.cpp.o: ../src/systems/
 /usr/include/wchar.h:
 
 /usr/include/c++/11/bits/cxxabi_init_exception.h:
+
+/usr/include/c++/11/bits/functional_hash.h:
 
 /usr/include/c++/11/bits/move.h:
 
@@ -6086,6 +6209,10 @@ CMakeFiles/VkeEngine.dir/src/systems/simple_render_system.cpp.o: ../src/systems/
 
 /usr/include/x86_64-linux-gnu/bits/stdlib-float.h:
 
+/usr/include/c++/11/cwchar:
+
+/usr/include/x86_64-linux-gnu/bits/select2.h:
+
 /usr/include/glm/ext/vector_bool4_precision.hpp:
 
 /usr/include/alloca.h:
@@ -6093,6 +6220,8 @@ CMakeFiles/VkeEngine.dir/src/systems/simple_render_system.cpp.o: ../src/systems/
 /usr/include/c++/11/tr1/poly_laguerre.tcc:
 
 /usr/include/glm/ext/vector_bool2.hpp:
+
+/usr/include/c++/11/cwctype:
 
 /usr/include/glm/ext/vector_double1.hpp:
 
@@ -6105,6 +6234,16 @@ CMakeFiles/VkeEngine.dir/src/systems/simple_render_system.cpp.o: ../src/systems/
 /usr/include/c++/11/cstdio:
 
 /usr/include/stdio.h:
+
+/usr/include/x86_64-linux-gnu/bits/stdio.h:
+
+/usr/include/x86_64-linux-gnu/bits/stdio2.h:
+
+/usr/include/glm/ext/quaternion_double_precision.hpp:
+
+/usr/include/x86_64-linux-gnu/bits/types/struct_tm.h:
+
+/usr/include/c++/11/bits/locale_facets.tcc:
 
 /usr/include/glm/ext/vector_float1_precision.hpp:
 
@@ -6154,6 +6293,8 @@ CMakeFiles/VkeEngine.dir/src/systems/simple_render_system.cpp.o: ../src/systems/
 
 /usr/include/x86_64-linux-gnu/bits/types/clockid_t.h:
 
+/usr/include/x86_64-linux-gnu/bits/stdlib-bsearch.h:
+
 /usr/include/c++/11/bits/stl_bvector.h:
 
 /usr/include/glm/ext/matrix_double2x3.hpp:
@@ -6185,6 +6326,8 @@ CMakeFiles/VkeEngine.dir/src/systems/simple_render_system.cpp.o: ../src/systems/
 ../src/ave_camera.hpp:
 
 /usr/include/c++/11/bits/ios_base.h:
+
+/usr/include/x86_64-linux-gnu/bits/wchar2.h:
 
 /usr/include/vulkan/vk_platform.h:
 
@@ -6240,8 +6383,6 @@ CMakeFiles/VkeEngine.dir/src/systems/simple_render_system.cpp.o: ../src/systems/
 
 /usr/include/c++/11/tr1/poly_hermite.tcc:
 
-/usr/include/c++/11/cwctype:
-
 /usr/include/glm/detail/type_float.hpp:
 
 /usr/include/glm/vector_relational.hpp:
@@ -6251,12 +6392,6 @@ CMakeFiles/VkeEngine.dir/src/systems/simple_render_system.cpp.o: ../src/systems/
 /usr/include/glm/detail/type_mat2x4.hpp:
 
 /usr/include/x86_64-linux-gnu/c++/11/bits/ctype_inline.h:
-
-/usr/include/glm/ext/quaternion_double_precision.hpp:
-
-/usr/include/x86_64-linux-gnu/bits/types/struct_tm.h:
-
-/usr/include/c++/11/bits/locale_facets.tcc:
 
 /usr/include/c++/11/bits/codecvt.h:
 
@@ -6306,12 +6441,6 @@ CMakeFiles/VkeEngine.dir/src/systems/simple_render_system.cpp.o: ../src/systems/
 
 /usr/include/glm/detail/type_vec2.hpp:
 
-/usr/include/c++/11/bits/specfun.h:
-
-/usr/include/glm/gtc/matrix_transform.hpp:
-
-/usr/include/glm/simd/platform.h:
-
 /usr/include/c++/11/limits:
 
 /usr/include/c++/11/array:
@@ -6329,8 +6458,6 @@ CMakeFiles/VkeEngine.dir/src/systems/simple_render_system.cpp.o: ../src/systems/
 /usr/include/glm/ext/vector_float4.hpp:
 
 /usr/include/c++/11/tr1/riemann_zeta.tcc:
-
-/usr/include/glm/ext/vector_double2_precision.hpp:
 
 /usr/include/c++/11/bits/sstream.tcc:
 
@@ -6371,11 +6498,3 @@ CMakeFiles/VkeEngine.dir/src/systems/simple_render_system.cpp.o: ../src/systems/
 /usr/include/glm/detail/type_mat2x3.hpp:
 
 /usr/include/glm/detail/qualifier.hpp:
-
-/usr/include/glm/detail/compute_vector_relational.hpp:
-
-/usr/include/c++/11/stdlib.h:
-
-/usr/include/glm/ext/vector_bool2_precision.hpp:
-
-/usr/include/glm/ext/vector_int2.hpp:

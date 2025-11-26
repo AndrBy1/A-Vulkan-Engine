@@ -158,13 +158,11 @@ namespace ave {
         //smooth uses smooth shading for vertex normals where the normal was calculated as if there was a smooth surface 
         //flat uses flat shading where the normal is the same for the entire face
         std::shared_ptr<AveModel> AveModel = AveModel::createModelFromFile(aveDevice, "models/flat_vase.obj");
-
         auto flatVase = AveGameObject::createGameObject();
         flatVase.model = AveModel;
         flatVase.transform.translation = {-.5f, .5f, 0.f};
         flatVase.transform.scale = {3.f, 1.5f, 3.f};
         gameObjects.emplace(flatVase.getId(), std::move(flatVase));
-        //models.push_back(*AveModel); don't need models since there's already map of gameobjects
 
         AveModel = AveModel::createModelFromFile(aveDevice, "models/smooth_vase.obj");
         auto smoothVase = AveGameObject::createGameObject();
@@ -172,25 +170,16 @@ namespace ave {
         smoothVase.transform.translation = {.5f, .5f, 0.f};
         smoothVase.transform.scale = {3.f, 1.5f, 3.f};
         gameObjects.emplace(smoothVase.getId(), std::move(smoothVase));
-        //models.push_back(*AveModel);
 
         AveModel = AveModel::createModelFromFile(aveDevice, "models/viking_room.obj");
-        AveModel->attachTextureFromFile("textures/viking_room.png");
-
-        VkImageView texView = AveModel->getTextureImage().getImageView();
-        std::cout << "Texture ImageView: " << texView << std::endl;
-
+        AveModel->attachTextureFromFile("textures/viking_room.png"); 
         VkDescriptorImageInfo roomImageInfo = AveModel->getTextureImage().descriptorInfo(VK_IMAGE_LAYOUT_SHADER_READ_ONLY_OPTIMAL);
         imageInfos.push_back(roomImageInfo);
-
         auto room = AveGameObject::createGameObject();
         room.model = AveModel;
         room.transform.translation = {0.f, 0.f, 0.f};
         room.transform.scale = {1.f, 1.f, 1.f};
         gameObjects.emplace(room.getId(),  std::move(room));
-        //assert(room.model != nullptr && "room.model is null");
-        //assert(room.model->getTextureDescriptor() != VK_NULL_HANDLE && "texture descriptor is null");
-        //models.push_back(*AveModel);
 
         AveModel = AveModel::createModelFromFile(aveDevice, "models/quad.obj");
         auto floor = AveGameObject::createGameObject();
@@ -198,7 +187,6 @@ namespace ave {
         floor.transform.translation = {0.f, .5f, 0.f};
         floor.transform.scale = {3.f, 1.f, 3.f};
         gameObjects.emplace(floor.getId(), std::move(floor));
-        //models.push_back(*AveModel);
 
         std::vector<glm::vec3> lightColors{
             {1.f, .1f, .1f},
