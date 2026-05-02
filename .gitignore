@@ -1,2 +1,9 @@
+
+
+build/
+build\
+
 *.spv
+
 *.o
+*.yaml
