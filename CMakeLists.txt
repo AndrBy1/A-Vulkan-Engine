@@ -1,4 +1,12 @@
-include(./.env.cmake OPTIONAL RESULT_VARIABLE LOCAL_ENV)
+if (WIN32)
+  message(STATUS "Loading Windows environment variables from .env.cmake")
+  include(envWindows.env.cmake OPTIONAL RESULT_VARIABLE LOCAL_ENV)
+else()
+  message(STATUS "Not on Windows, assuming it is a Unix system. Loading Unix environment variables from .env.cmake")
+  include(./.env.cmake OPTIONAL RESULT_VARIABLE LOCAL_ENV)
+endif()
+
+
 message(STATUS "Local .env.cmake: ${LOCAL_ENV}")
  
 cmake_minimum_required(VERSION 3.11.0)
@@ -15,7 +23,7 @@ if (CMAKE_GENERATOR STREQUAL "MinGW Makefiles")
       set(CMAKE_CXX_COMPILER  ${MINGW_PATH}/bin/g++.exe)
     endif()
 endif()
- 
+
 project(${NAME} VERSION 0.23.0)
  
 # 1. Set VULKAN_SDK_PATH in .env.cmake to target specific vulkan version
