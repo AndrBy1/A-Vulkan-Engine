@@ -6,13 +6,12 @@ else()
   include(./.env.cmake OPTIONAL RESULT_VARIABLE LOCAL_ENV)
 endif()
 
-
 message(STATUS "Local .env.cmake: ${LOCAL_ENV}")
- 
+
 cmake_minimum_required(VERSION 3.11.0)
- 
-set(NAME VkeEngine)
- 
+
+set(NAME AVKEngine)
+
 message(STATUS "using ${CMAKE_GENERATOR}")
 if (CMAKE_GENERATOR STREQUAL "MinGW Makefiles")
     if (NOT MINGW_PATH) 
@@ -25,7 +24,7 @@ if (CMAKE_GENERATOR STREQUAL "MinGW Makefiles")
 endif()
 
 project(${NAME} VERSION 0.23.0)
- 
+
 # 1. Set VULKAN_SDK_PATH in .env.cmake to target specific vulkan version
 if (DEFINED VULKAN_SDK_PATH)
   set(Vulkan_INCLUDE_DIRS "${VULKAN_SDK_PATH}/Include") # 1.1 Make sure this include path is correct
@@ -40,8 +39,7 @@ if (NOT Vulkan_FOUND)
 else()
     message(STATUS "Using vulkan lib at: ${Vulkan_LIBRARIES}")
 endif()
- 
- 
+
 # 2. Set GLFW_PATH in .env.cmake to target specific glfw
 if (DEFINED GLFW_PATH)
   message(STATUS "Using GLFW path specified in .env")
@@ -62,26 +60,26 @@ if (NOT GLFW_LIB)
 else()
     message(STATUS "Using glfw lib at: ${GLFW_LIB}")
 endif()
- 
+
 include_directories(external)
- 
+
 # If TINYOBJ_PATH not specified in .env.cmake, try fetching from git repo
 if (NOT TINYOBJ_PATH)
   message(STATUS "TINYOBJ_PATH not specified in .env.cmake, using external/tinyobjloader")
   set(TINYOBJ_PATH external/tinyobjloader)
 endif()
- 
+
 file(GLOB_RECURSE SOURCES ${PROJECT_SOURCE_DIR}/src/*.cpp)
- 
+
 add_executable(${PROJECT_NAME} ${SOURCES})
- 
+
 target_compile_features(${PROJECT_NAME} PUBLIC cxx_std_17)
- 
+
 set_property(TARGET ${PROJECT_NAME} PROPERTY VS_DEBUGGER_WORKING_DIRECTORY "${CMAKE_SOURCE_DIR}/build")
- 
+
 if (WIN32)
   message(STATUS "CREATING BUILD FOR WINDOWS")
- 
+  
   if (USE_MINGW)
     target_include_directories(${PROJECT_NAME} PUBLIC
       ${MINGW_PATH}/include

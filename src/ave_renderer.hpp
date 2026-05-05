@@ -54,9 +54,9 @@ namespace ave {
         //unique_ptr is a smart pointer that manages the lifetime of an object
         std::vector<VkCommandBuffer> commandBuffers;
 
-        uint32_t currentImageIndex;
-        int currentFrameIndex;
-        bool isFrameStarted;
+        uint32_t currentImageIndex = 0;
+        int currentFrameIndex = 0;
+        bool isFrameStarted = 0;
     };
 }
 
