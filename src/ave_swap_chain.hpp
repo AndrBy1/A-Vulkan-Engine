@@ -26,7 +26,7 @@ namespace ave {
 class AveSwapChain {
  public:
   //constexpr allows declaration of variables, functions and objects that can be evaluated at compile time. 
-  static constexpr int MAX_FRAMES_IN_FLIGHT = 2; //limits to this number of command buffers, after these command buffers are submitted, cpu will block call on nextimgage function
+  static constexpr int MAX_FRAMES_IN_FLIGHT = 3; //limits to this number of command buffers, after these command buffers are submitted, cpu will block call on nextimgage function
 
   AveSwapChain(AveDevice &deviceRef, VkExtent2D windowExtent);
   AveSwapChain(AveDevice &deviceRef, VkExtent2D windowExtent, std::shared_ptr<AveSwapChain> previous);
