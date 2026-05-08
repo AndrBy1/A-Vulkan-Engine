@@ -25,16 +25,18 @@ namespace ave {
 
         private:
         void loadGameObjects();
+        void makeModelObj(std::string modelPath, glm::vec3 position, glm::vec3 scale, glm::vec3 rotation = { 0.f, 0.f, 0.f }, std::string texturePath = "");
 
         //order here matters
         AveWindow aveWindow{WIDTH, HEIGHT, "HELLO VULKAN!"};
         AveDevice aveDevice{aveWindow};
         AveRenderer aveRenderer{aveWindow, aveDevice};
+        AveImage fallbackImage{ aveDevice };
 
         //order of declaration matters, need to be destroyed in reverse order of creation
         std::unique_ptr<AveDescriptorPool> globalPool{};
         std::vector<VkDescriptorImageInfo> imageInfos;
-        std::vector<AveModel> models;
+        std::vector<VkDescriptorSetLayout> setLayouts;
 
         AveGameObject::Map gameObjects;
     };

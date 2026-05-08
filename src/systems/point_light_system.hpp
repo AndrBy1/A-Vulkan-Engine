@@ -10,30 +10,26 @@
 #include <vector>
 
 namespace ave {
-    class PointLightSystem {
-        public:
+	class PointLightSystem {
+	public:
+		PointLightSystem(AveDevice& device, VkRenderPass renderPass, VkDescriptorSetLayout globalSetLayout);
+		~PointLightSystem();
 
-        PointLightSystem(AveDevice& device, VkRenderPass renderPass, VkDescriptorSetLayout globalSetLayout);
-        ~PointLightSystem();
+		PointLightSystem(const PointLightSystem&) = delete; //disable copy constructor
+		PointLightSystem& operator=(const PointLightSystem&) = delete;
 
-        //becuase this is managing Vulkan objects for pipeline layout and command buffers, we should delete copy constructors 
-        PointLightSystem(const PointLightSystem&) = delete; // Disable copy constructor
-        PointLightSystem& operator=(const PointLightSystem&) = delete;
+		void update(FrameInfo& frameInfo, GlobalUbo& ubo);
+		void render(FrameInfo& frameInfo);
 
-        void update(FrameInfo& frameInfo, GlobalUbo& ubo);
-        void render(FrameInfo& frameInfo);
+	private:
+		void createPipelineLayout(VkDescriptorSetLayout globalSetLayout);
+		void createPipeline(VkRenderPass renderPass);
 
-        private:
-        void createPipelineLayout(VkDescriptorSetLayout globalSetLayout);
-        void createPipeline(VkRenderPass renderPass);
-
-        //order here matters
-        AveDevice& aveDevice;
-        //unique_ptr is a smart pointer that manages the lifetime of an object
-        std::unique_ptr<AvePipeline> avePipeline;
-        VkPipelineLayout pipelineLayout;
-    };
+		//order matters here since they are initialized in order listed
+		AveDevice& aveDevice;
+		std::unique_ptr<AvePipeline> avePipeline;
+		VkPipelineLayout pipelineLayout;
+	};
 }
-
 //rendere manages swapchain, command buffers and draw frame
 //simple render system sets up pipeline pipeline layout, simple push constants struct and render game objects

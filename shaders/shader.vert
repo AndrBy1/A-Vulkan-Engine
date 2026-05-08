@@ -5,7 +5,6 @@ layout(location = 1) in vec3 color;
 //normals checks the direction of a surface. If the surface it pointing towards light it is lit. The greater the angle the darker. 
 layout(location = 2) in vec3 normal; 
 layout(location = 3) in vec2 uv;
-layout(location = 4) in vec2 texCoord; //for normal mapping
 
 layout(location = 0) out vec3 fragColor;
 layout(location = 1) out vec3 fragPosWorld;
@@ -26,9 +25,9 @@ layout(set = 0, binding = 0) uniform GlobalUbo{
     PointLight pointLights[10]; //specialization constants is a method of passing constant values to shaders at pipeline creation time
     int numLights;
 } ubo;
+//the purpose of writing "ubo" is to create an instance of the uniform block defined by the GlobalUbo structure so that its members can be accessed in the shader code
 
-
-layout(set = 1, binding = 0) uniform sampler2D texSampler; //texture sampler
+//layout(set = 1, binding = 0) uniform sampler2D texSampler; //texture sampler
 
 layout(push_constant) uniform Push{ //push constant is glsl for vulkan only
     mat4 modelMatrix;
@@ -36,7 +35,8 @@ layout(push_constant) uniform Push{ //push constant is glsl for vulkan only
 } push; //this can be lowercase and uniform is upper
 
 void main() {
-    vec4 positionWorld = push.modelMatrix * vec4(positions, 1.0); //model matrix transforms from model space to world space
+    //model matrix transforms from model space to world space
+    vec4 positionWorld = push.modelMatrix * vec4(positions, 1.0); 
 
     //the first component of gl_VertexIndex is used to index into the positions array, 
     gl_Position = ubo.projection * ubo.view * positionWorld;
@@ -51,6 +51,6 @@ void main() {
     fragNormalWorld = normalize(mat3(push.normalMatrix) * normal);
     fragPosWorld = positionWorld.xyz; //world space position of the fragment
     fragColor = color;
-    fragTexCoord = texCoord;
+    fragTexCoord = uv;
 
 }

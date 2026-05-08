@@ -1,3 +1,8 @@
+//ave_renderer manages the swapchain, command buffers and draw frame
+//command_buffers are buffers or GPU variables that contain instruction or command data
+//draw frame are the frames that draw in the window
+//simple render system sets up pipeline pipeline layout, simple push constants struct and render game objects
+
 #pragma once //pragma once prevents multiple inclusions of the same header file similar to #ifndef guards
 #include "ave_window.hpp"
 #include "ave_device.hpp"
@@ -7,58 +12,62 @@
 #include <vector>
 #include <cassert>
 
+
 namespace ave {
-    class AveRenderer {
-        public:
+	class AveRenderer {
+	public:
+		AveRenderer(AveWindow& window, AveDevice& device);
+		~AveRenderer();
 
-        AveRenderer(AveWindow& window, AveDevice& device);
-        ~AveRenderer();
+		//because this is managing Vulkan objects for pipeline layout and command buffers, we should delete copy constructors
+		AveRenderer(const AveRenderer&) = delete; //disable copy constructor
+		AveRenderer& operator=(const AveRenderer&) = delete;
 
-        //becuase this is managing Vulkan objects for pipeline layout and command buffers, we should delete copy constructors 
-        AveRenderer(const AveRenderer&) = delete; // Disable copy constructor
-        AveRenderer& operator=(const AveRenderer&) = delete;
+		//need to be able to access swap chain render pass
+		VkRenderPass getSwapChainRenderPass() const { return aveSwapChain->getRenderPass(); }
+		float getAspectRatio() const { return aveSwapChain->extentAspectRatio(); }
 
-        //need to be able to accesss swap chain render pass
-        VkRenderPass getSwapChainRenderPass() const {return aveSwapChain->getRenderPass();}
-        float getAspectRatio() const {return aveSwapChain->extentAspectRatio();}
+		bool isFrameInProgress() const { return isFrameStarted; }
 
-        bool isFrameInProgress() const {return isFrameStarted;}
+		VkCommandBuffer getCurrentCommandBuffer() const {
+			assert(isFrameStarted && "Cannot get command buffer when frame not in progress");
+			return commandBuffers[currentFrameIndex];
+		}
 
-        VkCommandBuffer getCurrentCommandBuffer() const {
-            assert(isFrameStarted && "Cannot get command buiffer when frame not in progess");
-            return commandBuffers[currentFrameIndex];
-        }
+		int getFrameIndex() const {
+			assert(isFrameStarted && "Cannot get command buffer when frame not in progress");
+			return currentFrameIndex;
+		}
 
-        int getFrameIndex() const {
-            assert(isFrameStarted && "Cannot get command buffer when frame not in progress");
-            return currentFrameIndex;
-        }
+		//one function to begin the frame, second to end it
+		//beginFrame and beginSwapChainRenderPass isn't combined into a single function because we want application to main control over this functionality
+		//so later we can easily integrate shadows, reflection, post processing
+		VkCommandBuffer beginFrame();
+		void endFrame();
+		void beginSwapChainRenderPass(VkCommandBuffer commandBuffer);
+		void endSwapChainRenderPass(VkCommandBuffer commandBuffer);
 
-        //one function to begin the frame, second to end it
-        //begin frame and beginSwaipChainRenderPass isn't combined into a single function because we want application to main control over this functionality 
-        //so later we can easily integrate shadows, reflection, post processing
-        VkCommandBuffer beginFrame();
-        void endFrame();
-        void beginSwapChainRenderPass(VkCommandBuffer commandBuffer);
-        void endSwapChainRenderPass(VkCommandBuffer commandBuffer);
+	private:
+		void createCommandBuffers();
+		void freeCommandBuffers();
+		void recreateSwapChain();
 
-        private:
-        void createCommandBuffers();
-        void freeCommandBuffers();
-        void recreateSwapChain();
+		//order here matters
+		AveWindow& aveWindow;
+		AveDevice& aveDevice;
+		//use unique pointer can easily create new width and height by constructing a new object
+		//unique_ptr is a smart pointer that manages the lifetime of an object
+		std::unique_ptr<AveSwapChain> aveSwapChain; 
+		std::vector<VkCommandBuffer> commandBuffers;
 
-        //order here matters
-        AveWindow& aveWindow;
-        AveDevice& aveDevice;
-        std::unique_ptr<AveSwapChain> aveSwapChain; //use unique pointer can easily create new width and height by constructing a new object
-        //unique_ptr is a smart pointer that manages the lifetime of an object
-        std::vector<VkCommandBuffer> commandBuffers;
+		//currentImageIndex is the index of the current image in the swap chain that is being rendered to
+		//it is used to track which image in the swap chain is currently being used for rendering
+		uint32_t currentImageIndex;
+		//the current frame index is the index of the current frame being rendered, used to track which command buffer to use
+		//the way it is used is that it increments after each frame is rendered and wraps around to 0 when it reaches the max frames in flight
+		int currentFrameIndex;
+		//isFrameStarted is a boolean flag that indicates whether a frame is currently being rendered or not
+		bool isFrameStarted;
 
-        uint32_t currentImageIndex;
-        int currentFrameIndex;
-        bool isFrameStarted;
-    };
+	};
 }
-
-//rendere manages swapchain, command buffers and draw frame
-//simple render system sets up pipeline pipeline layout, simple push constants struct and render game objects

@@ -3,14 +3,15 @@
 
 #pragma once
 
+
 #include "ave_buffer.hpp"
 #include "ave_descriptors.hpp"
 
 #include <string>
 
-namespace ave{
-    class AveImage{
-        public:
+namespace ave {
+    class AveImage {
+    public:
         AveImage(AveDevice& device);
         ~AveImage();
 
@@ -19,18 +20,18 @@ namespace ave{
 
         VkDescriptorImageInfo descriptorInfo(VkImageLayout imageLayout);
 
-        //AveDevice& getDevice() const { return aveDevice; }
+        //for debugging
+        VkImageView getImageView() const { return textureImageView; }
 
-        private:
-        void createImage(uint32_t width, uint32_t height, VkFormat format, VkImageTiling tiling, VkImageUsageFlags usage, 
+    private:
+        void createImage(uint32_t width, uint32_t height, VkFormat format, VkImageTiling tiling, VkImageUsageFlags usage,
             VkMemoryPropertyFlags properties, VkImage& image, VkDeviceMemory& imageMemory);
-
         void transitionImageLayout(VkImage image, VkFormat format, VkImageLayout oldLayout, VkImageLayout newLayout);
         void copyBufferToImage(VkBuffer buffer, VkImage image, uint32_t width, uint32_t height);
 
         // to set up a sampler object. 
         // Sampler objects define how to sample textures in shaders, including filtering modes, addressing modes, and mipmapping settings.
-        void createTextureSampler(); 
+        void createTextureSampler();
 
         //VkImageView createImageView(VkImage image, VkFormat format);
         void createTextureImageView();

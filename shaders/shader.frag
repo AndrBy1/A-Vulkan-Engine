@@ -45,21 +45,25 @@ void main() {
         vec3 directionToLight = light.position.xyz - fragPosWorld; //direction from the surface to the light source
 
         float attenuation = 1.0 / (dot(directionToLight, directionToLight)); //distance squared. attenuation is how much the light dims over distance
+        
         directionToLight = normalize(directionToLight); //normalize after calculating attenuation
 
-        float cosAngIncidence = max(dot(surfaceNormal, directionToLight), 0); //cosine of angle of incidence, clamped to 0
+        //cosine of angle of incidence, clamped to 0
+        float cosAngIncidence = max(dot(surfaceNormal, directionToLight), 0); 
         vec3 intensity = light.color.xyz * light.color.w * attenuation; //rgb * intensity
 
         diffuseLight += intensity * cosAngIncidence; //add to total light
 
         //specular
-        vec3 halfAngle=normalize(directionToLight + viewDirection); //halfway vector between light direction and view direction
+        vec3 halfAngle = normalize(directionToLight + viewDirection); //halfway vector between light direction and view direction
         //blinnTerm is the same as (dot(reflect(-directionToLight, surfaceNormal), viewDirection)) for Phon-blinn reflection. It's the math for specular highlights
         float blinnTerm = dot(surfaceNormal, halfAngle);
         blinnTerm = clamp(blinnTerm, 0.0, 1.0);
         blinnTerm = pow(blinnTerm, 32.0); //higher values -> sharper highlights
         specularLight += intensity * blinnTerm;
     }
-    outColor = vec4(fragColor * diffuseLight + specularLight * fragColor, 1.0); 
-    //outColor = texture(texSampler, fragTexCoord) * vec4(diffuseLight, 1.0) + vec4(specularLight, 1.0);
+    //outColor = vec4(fragColor * diffuseLight + specularLight * fragColor, 1.0); 
+    //outColor = texture(texSampler, fragTexCoord);
+    //outColor = vec4(fragTexCoord, 0.0, 1.0); // visualize UV coordinates (should be blue/cyan/magenta)
+    outColor = texture(texSampler, fragTexCoord) * vec4(diffuseLight, 1.0) + vec4(specularLight, 1.0);
 }

@@ -1,4 +1,7 @@
 //code borrowed from https://pastebin.com/yU7dMAxt
+//ave_descriptors is a wrapper around vulkan descriptor sets and layouts
+//descriptor sets are used to bind resources to shaders. Descriptor layouts describe the types of resources that will be bound to the shaders
+//descriptor pools are used to allocate descriptor sets
 
 #pragma once
  
@@ -10,90 +13,85 @@
 #include <vector>
  
 namespace ave {
- 
-    class AveDescriptorSetLayout {
-    public:
-        class Builder {
-        public:
-            Builder(AveDevice &aveDevice) : aveDevice{aveDevice} {}
-        
-            Builder &addBinding(uint32_t binding, VkDescriptorType descriptorType, VkShaderStageFlags stageFlags, uint32_t count = 1); //appends to map of bindings  
-            std::unique_ptr<AveDescriptorSetLayout> build() const; //create an instance of the descriptor set layout wrapper class
-        
-        private:
-            AveDevice &aveDevice;
-            std::unordered_map<uint32_t, VkDescriptorSetLayoutBinding> bindings{};
-        };
-        
-        AveDescriptorSetLayout(
-            AveDevice &aveDevice, std::unordered_map<uint32_t, VkDescriptorSetLayoutBinding> bindings);
-        ~AveDescriptorSetLayout();
-        AveDescriptorSetLayout(const AveDescriptorSetLayout &) = delete;
-        AveDescriptorSetLayout &operator=(const AveDescriptorSetLayout &) = delete;
-        
-        VkDescriptorSetLayout getDescriptorSetLayout() const { return descriptorSetLayout; }
-        
-    private:
-        AveDevice &aveDevice;
-        VkDescriptorSetLayout descriptorSetLayout;
-        std::unordered_map<uint32_t, VkDescriptorSetLayoutBinding> bindings;
-        
+	class AveDescriptorSetLayout {
+	public:
+		class Builder {
+		public:
+			Builder(AveDevice& aveDevice) : aveDevice{ aveDevice } {}
+			//appends to map of bindings 
+			Builder& addBinding(uint32_t binding, VkDescriptorType descriptorType, VkShaderStageFlags stageFlags, uint32_t count = 1);
+			//create an instance of the descriptor set layout wrapper class
+			std::unique_ptr<AveDescriptorSetLayout> build() const;
+		private:
+			AveDevice& aveDevice;
+			// 
+			std::unordered_map<uint32_t, VkDescriptorSetLayoutBinding> bindings{};
+		};
+
+		AveDescriptorSetLayout(AveDevice& aveDevice, std::unordered_map<uint32_t, VkDescriptorSetLayoutBinding> bindings);
+		~AveDescriptorSetLayout();
+		AveDescriptorSetLayout(const AveDescriptorSetLayout&) = delete;
+		AveDescriptorSetLayout& operator=(const AveDescriptorSetLayout&) = delete;
+
+		VkDescriptorSetLayout getDescriptorSetLayout() const { return descriptorSetLayout; };
+
+	private:
+		AveDevice& aveDevice;
+		VkDescriptorSetLayout descriptorSetLayout;
+		std::unordered_map<uint32_t, VkDescriptorSetLayoutBinding> bindings;
+
+		//friend class allows one class to access private and protected mambers of another class
         friend class AveDescriptorWriter;
-    };
+	};
 
-    class AveDescriptorPool {
-    public:
-        class Builder {
-        public:
-            Builder(AveDevice &aveDevice) : aveDevice{aveDevice} {}
-        
-            Builder &addPoolSize(VkDescriptorType descriptorType, uint32_t count);
-            Builder &setPoolFlags(VkDescriptorPoolCreateFlags flags);
-            Builder &setMaxSets(uint32_t count);
-            std::unique_ptr<AveDescriptorPool> build() const;
-        
-        private:
-            AveDevice &aveDevice;
-            std::vector<VkDescriptorPoolSize> poolSizes{};
-            uint32_t maxSets = 1000;
-            VkDescriptorPoolCreateFlags poolFlags = 0;
-        };
-        AveDescriptorPool(
-            AveDevice &aveDevice,
-        uint32_t maxSets,
-        VkDescriptorPoolCreateFlags poolFlags,
-        const std::vector<VkDescriptorPoolSize> &poolSizes);
-        ~AveDescriptorPool();
-        AveDescriptorPool(const AveDescriptorPool &) = delete;
-        AveDescriptorPool &operator=(const AveDescriptorPool &) = delete;
-        
-        bool allocateDescriptor(const VkDescriptorSetLayout descriptorSetLayout, VkDescriptorSet &descriptor) const;
-        
-        void freeDescriptors(std::vector<VkDescriptorSet> &descriptors) const;
-        
-        void resetPool();
-        
-        private:
-        AveDevice &aveDevice;
-        VkDescriptorPool descriptorPool;
-        
-        friend class AveDescriptorWriter;
-    };
+	class AveDescriptorPool {
+	public:
+		class Builder {
+		public:
+			Builder(AveDevice& aveDevice) : aveDevice{ aveDevice } {}
+			Builder& addPoolSize(VkDescriptorType descriptorType, uint32_t count);
+			Builder& setPoolFlags(VkDescriptorPoolCreateFlags flags);
+			Builder& setMaxSets(uint32_t count);
+			std::unique_ptr<AveDescriptorPool> build() const;
 
-    class AveDescriptorWriter { //make building the descriptor sets easier
-        public:
-        AveDescriptorWriter(AveDescriptorSetLayout &setLayout, AveDescriptorPool &pool);
-        
-        AveDescriptorWriter &writeBuffer(uint32_t binding, VkDescriptorBufferInfo *bufferInfo);
-        AveDescriptorWriter &writeImage(uint32_t binding, VkDescriptorImageInfo *imageInfo);
-        
-        bool build(VkDescriptorSet &set);
-        void overwrite(VkDescriptorSet &set);
-        
-        private:
-        AveDescriptorSetLayout &setLayout;
-        AveDescriptorPool &pool;
-        std::vector<VkWriteDescriptorSet> writes;
-    };
+		private:
+			AveDevice& aveDevice;
+			std::vector<VkDescriptorPoolSize> poolSizes{};
+			uint32_t maxSets = 1000;
+			VkDescriptorPoolCreateFlags poolFlags = 0;
 
-}  // namespace vke
+		};
+		AveDescriptorPool(AveDevice& aveDevice, uint32_t maxSets, VkDescriptorPoolCreateFlags poolFlags, const std::vector<VkDescriptorPoolSize>& poolSizes);
+		~AveDescriptorPool();
+		AveDescriptorPool(const AveDescriptorPool&) = delete;
+		AveDescriptorPool& operator = (const AveDescriptorPool&) = delete;
+
+		bool allocateDescriptor(const VkDescriptorSetLayout descriptorSetLayout, VkDescriptorSet& descriptor) const;
+
+		void freeDescriptors(std::vector<VkDescriptorSet>& descriptors) const;
+
+		void resetPool();
+
+	private:
+		AveDevice& aveDevice;
+		VkDescriptorPool descriptorPool;
+
+		friend class AveDescriptorWriter;
+	};
+
+	class AveDescriptorWriter { //make building the descriptor sets easier
+	public:
+		AveDescriptorWriter(AveDescriptorSetLayout& setLayout, AveDescriptorPool& pool);
+
+		AveDescriptorWriter& writeBuffer(uint32_t binding, VkDescriptorBufferInfo* bufferInfo);
+		AveDescriptorWriter& writeImage(uint32_t binding, VkDescriptorImageInfo* imageInfo);
+
+		bool build(VkDescriptorSet& set);
+		void overwrite(VkDescriptorSet& set);
+
+	private:
+		AveDescriptorSetLayout& setLayout;
+		AveDescriptorPool& pool;
+		std::vector<VkWriteDescriptorSet> writes;
+	};
+}

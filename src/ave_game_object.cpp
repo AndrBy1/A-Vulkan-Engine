@@ -1,6 +1,12 @@
 #include "ave_game_object.hpp"
 
-namespace ave{
+//these might not be necessary
+#define GLM_FORCE_RADIANS
+#define GLM_FORCE_DEPTH_ZERO_TO_ONE
+#include <glm/glm.hpp>
+#include <glm/gtc/constants.hpp> 
+
+namespace ave {
     glm::mat4 TransformComponent::mat4() {
         const float c3 = glm::cos(rotation.z);
         const float s3 = glm::sin(rotation.z);
@@ -27,7 +33,7 @@ namespace ave{
                 scale.z * (c1 * c2),
                 0.0f,
             },
-            {translation.x, translation.y, translation.z, 1.0f}
+            {translation.x, translation.y, translation.z, 1.0f} 
         };
     }
 
@@ -58,8 +64,18 @@ namespace ave{
             },
         };
     }
+    
+    VkDescriptorImageInfo AveGameObject::attachTextureFromFile(const std::string& filepath) {
+        textureImage = std::make_unique<AveImage>(model->getDevice());
+        textureImage->createTextureImage(filepath);
+        return textureImage->descriptorInfo(VK_IMAGE_LAYOUT_SHADER_READ_ONLY_OPTIMAL);
+    }
 
-    AveGameObject AveGameObject::makePointLight(float intensity, float radius, glm::vec3 color){
+    void AveGameObject::setTextureDescriptor(VkDescriptorSet descriptor) {
+        textureDescriptor = descriptor;
+    }
+
+    AveGameObject AveGameObject::makePointLight(float intensity, float radius, glm::vec3 color) {
         AveGameObject gameObj = AveGameObject::createGameObject();
         gameObj.color = color;
         gameObj.transform.scale.x = radius;
