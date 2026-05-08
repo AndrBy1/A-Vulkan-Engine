@@ -25,9 +25,9 @@ layout(set = 0, binding = 0) uniform GlobalUbo{
     PointLight pointLights[10]; //specialization constants is a method of passing constant values to shaders at pipeline creation time
     int numLights;
 } ubo;
+//the purpose of writing "ubo" is to create an instance of the uniform block defined by the GlobalUbo structure so that its members can be accessed in the shader code
 
-
-layout(set = 1, binding = 0) uniform sampler2D texSampler; //texture sampler
+//layout(set = 1, binding = 0) uniform sampler2D texSampler; //texture sampler
 
 layout(push_constant) uniform Push{ //push constant is glsl for vulkan only
     mat4 modelMatrix;
@@ -35,7 +35,8 @@ layout(push_constant) uniform Push{ //push constant is glsl for vulkan only
 } push; //this can be lowercase and uniform is upper
 
 void main() {
-    vec4 positionWorld = push.modelMatrix * vec4(positions, 1.0); //model matrix transforms from model space to world space
+    //model matrix transforms from model space to world space
+    vec4 positionWorld = push.modelMatrix * vec4(positions, 1.0); 
 
     //the first component of gl_VertexIndex is used to index into the positions array, 
     gl_Position = ubo.projection * ubo.view * positionWorld;
@@ -50,7 +51,6 @@ void main() {
     fragNormalWorld = normalize(mat3(push.normalMatrix) * normal);
     fragPosWorld = positionWorld.xyz; //world space position of the fragment
     fragColor = color;
-    //fragColor = texture(texSampler, fragTexCoord).rgb;
     fragTexCoord = uv;
 
 }

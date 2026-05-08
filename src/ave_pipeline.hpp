@@ -12,12 +12,14 @@ namespace ave{
         PipelineConfigInfo& operator=(const PipelineConfigInfo&) = delete;
         //https://pastebin.com/EmsJWHzb
         
-        //some shaders expect vertex data to be laid out in a certain way, binding descriptions describe how to read vertex data from vertex buffers, attribute descriptions describe how to extract vertex attributes from vertex data
+        //some shaders expect vertex data to be laid out in a certain way, binding descriptions describe how to read vertex data from vertex buffers, 
+        //attribute descriptions describe how to extract vertex attributes from vertex data
         //binding descriptions describe at which rate to load data from memory throughout the vertices, ex: per-vertex or per-instance
         //attribute descriptions describe how to handle vertex input attributes within a vertex, ex: position, color, normal, texture coordinates
         //we make these vectors so that we can have multiple bindings and attributes
         std::vector<VkVertexInputBindingDescription> bindingDescriptions{};
         std::vector<VkVertexInputAttributeDescription> attributeDescriptions{};
+        
         VkPipelineViewportStateCreateInfo viewportInfo;
         VkPipelineInputAssemblyStateCreateInfo inputAssemblyInfo;
         VkPipelineRasterizationStateCreateInfo rasterizationInfo;
@@ -42,14 +44,19 @@ namespace ave{
 
         void bind(VkCommandBuffer commandBuffer);
 
+        //defaultPipelineConfigInfo is a static function that fills in a PipelineConfigInfo struct with default values for the pipeline configuration, 
+        //useful for quickly setting up a pipeline with default settings and then modifying only the necessary fields
         static void defaultPipelineConfigInfo(PipelineConfigInfo& configInfo);
         static void enableAlphaBlending(PipelineConfigInfo& configInfo);
 
         private:
+        //readFile helper function to read the contents of a file into a vector of chars, used for reading shader code from files
         static std::vector<char> readFile(const std::string& filePath);
 
+        //createGraphicsPipeline creates a graphics pipeline using the provided vertex and fragment shader file paths and pipeline configuration info
         void createGraphicsPipeline(const std::string& vertFilePath, const std::string& fragFilePath, const PipelineConfigInfo& configInfo);
 
+        //createShaderModule helper function that creates a shader module from the provided shader code, used for creating vertex and fragment shader modules
         void createShaderModule(const std::vector<char>& code, VkShaderModule* shaderModule);
 
         AveDevice& aveDevice; // reference to the device, so we can use it to create pipeline

@@ -15,9 +15,10 @@
 #define ENGINE_DIR "../"
 #endif
 
-namespace ave{
-    //member initializer list is used to initialize member variables before the constructor body executes, it is the part witht the :
-    AvePipeline::AvePipeline(AveDevice& device, const std::string& vertFilePath, const std::string& fragFilePath, const PipelineConfigInfo& configInfo) : aveDevice{device} {
+
+namespace ave {
+    //member initializer list is used to initialize member variables before the constructor body executes, it is the part with the :
+    AvePipeline::AvePipeline(AveDevice& device, const std::string& vertFilePath, const std::string& fragFilePath, const PipelineConfigInfo& configInfo) : aveDevice{ device } {
         createGraphicsPipeline(vertFilePath, fragFilePath, configInfo);
     }
 
@@ -27,8 +28,7 @@ namespace ave{
         vkDestroyPipeline(aveDevice.device(), graphicsPipeline, nullptr);
     }
 
-
-    std::vector<char> AvePipeline::readFile(const std::string& filePath){
+    std::vector<char> AvePipeline::readFile(const std::string& filePath) {
         std::string enginePath = ENGINE_DIR + filePath;
         //ate is when the files open, we seek the end imediately this makes getting the size more convenient, binary is to avoid any unwanted file translation errors
         std::ifstream file(enginePath, std::ios::ate | std::ios::binary);
@@ -50,7 +50,7 @@ namespace ave{
     }
 
     void AvePipeline::createGraphicsPipeline(const std::string& vertFilePath, const std::string& fragFilePath, const PipelineConfigInfo& configInfo) {
-
+        
         assert(configInfo.pipelineLayout != VK_NULL_HANDLE && "Cannot create graphics pipeline: no pipelineLayout provided in configInfo");
         assert(configInfo.renderPass != VK_NULL_HANDLE && "Cannot create graphics pipeline: no renderPass provided in configInfo");
         auto vertCode = readFile(vertFilePath);
@@ -104,15 +104,15 @@ namespace ave{
         pipelineInfo.subpass = configInfo.subpass;
 
         //can be used for optimization, can be less gpu expensive to create a new pipeline from an existing one
-        pipelineInfo.basePipelineIndex = -1; 
+        pipelineInfo.basePipelineIndex = -1;
         pipelineInfo.basePipelineHandle = VK_NULL_HANDLE;
 
-        if(vkCreateGraphicsPipelines(aveDevice.device(), VK_NULL_HANDLE, 1, &pipelineInfo, nullptr, &graphicsPipeline) != VK_SUCCESS){
+        if (vkCreateGraphicsPipelines(aveDevice.device(), VK_NULL_HANDLE, 1, &pipelineInfo, nullptr, &graphicsPipeline) != VK_SUCCESS) {
             throw std::runtime_error("failed to create graphics pipeline");
         }
     }
 
-    void AvePipeline::createShaderModule(const std::vector<char>& code, VkShaderModule* shaderModule){
+    void AvePipeline::createShaderModule(const std::vector<char>& code, VkShaderModule* shaderModule) {
         VkShaderModuleCreateInfo createInfo{};
         createInfo.sType = VK_STRUCTURE_TYPE_SHADER_MODULE_CREATE_INFO; // Specify the structure type
         createInfo.codeSize = code.size(); //size of vector
@@ -124,8 +124,8 @@ namespace ave{
         }
     }
 
-    void AvePipeline::bind(VkCommandBuffer commandBuffer){
-        
+    void AvePipeline::bind(VkCommandBuffer commandBuffer) {
+
         //no need for if since graphicsPipeline is created during initialization
         //VK_PIPELINE_BIND_POINT_COMPUTE specifies binding as a compute pipeline
         //VK_PIPELINE_BIND_POINT_GRAPHICS specifies binding as a graphics pipeline
@@ -135,23 +135,23 @@ namespace ave{
 
     void AvePipeline::defaultPipelineConfigInfo(PipelineConfigInfo& configInfo) {
         //this function is for creating a default pipeline configuration
-        
+
         //first stage of our pipeline, takes a list of vertices and converts them into geometry
         // InputAssemblyInfo is a structure that describes how the vertex data should be assembled into primitives
         // sType is the type of the structure
-        configInfo.inputAssemblyInfo.sType = VK_STRUCTURE_TYPE_PIPELINE_INPUT_ASSEMBLY_STATE_CREATE_INFO;  
+        configInfo.inputAssemblyInfo.sType = VK_STRUCTURE_TYPE_PIPELINE_INPUT_ASSEMBLY_STATE_CREATE_INFO;
         //topology is the type of geometry being rendered, this case uses triangle list where when 3 vertices are connected, they form a triangle with 3 lines instead of 2 lines
         configInfo.inputAssemblyInfo.topology = VK_PRIMITIVE_TOPOLOGY_TRIANGLE_LIST;
         //triangle strip is when a new vertex is added and that vertex automatically forms a connected triangle connecting to previous vertices without wasting memory,
         //this however limits the geometry that we can show to being a connected strip of triangles so we use primitiveRestartEnable
         // primitiveRestartEnable is a boolean that enables/disables primitive restart
         configInfo.inputAssemblyInfo.primitiveRestartEnable = VK_FALSE;
-        
+
         //viewportInfo is a structure that describes the viewport and scissor rectangles
         configInfo.viewportInfo.sType = VK_STRUCTURE_TYPE_PIPELINE_VIEWPORT_STATE_CREATE_INFO;
         configInfo.viewportInfo.viewportCount = 1; // we only have one viewport
         configInfo.viewportInfo.pViewports = nullptr;
-        configInfo.viewportInfo.scissorCount = 1; 
+        configInfo.viewportInfo.scissorCount = 1;
         configInfo.viewportInfo.pScissors = nullptr;
 
         //rasterization stage breaks geometry into fragments for each pixel our triangle overlaps
@@ -165,7 +165,7 @@ namespace ave{
         configInfo.rasterizationInfo.lineWidth = 1.0f;
         //can optionally discard triangles based on their apparent facing (winding order) determined by the order of the vertices making up triangle
         //ex: there are 3 vertices making up triangle, vertices are rendered clockwise you are facing front, if go behind, it would be rendered counterclockwise, we can use to determine face behavior
-        configInfo.rasterizationInfo.cullMode = VK_CULL_MODE_NONE; 
+        configInfo.rasterizationInfo.cullMode = VK_CULL_MODE_NONE;
         configInfo.rasterizationInfo.frontFace = VK_FRONT_FACE_CLOCKWISE;
         //depthbias can alter depth values by adding a constant value or by factor of fragments slope
         configInfo.rasterizationInfo.depthBiasEnable = VK_FALSE;
@@ -194,7 +194,7 @@ namespace ave{
         configInfo.colorBlendAttachment.srcAlphaBlendFactor = VK_BLEND_FACTOR_ONE;   // Optional
         configInfo.colorBlendAttachment.dstAlphaBlendFactor = VK_BLEND_FACTOR_ZERO;  // Optional
         configInfo.colorBlendAttachment.alphaBlendOp = VK_BLEND_OP_ADD;              // Optional
-        
+
         configInfo.colorBlendInfo.sType = VK_STRUCTURE_TYPE_PIPELINE_COLOR_BLEND_STATE_CREATE_INFO;
         configInfo.colorBlendInfo.logicOpEnable = VK_FALSE;
         configInfo.colorBlendInfo.logicOp = VK_LOGIC_OP_COPY;  // Optional
@@ -218,7 +218,7 @@ namespace ave{
         configInfo.depthStencilInfo.front = {};  // Optional
         configInfo.depthStencilInfo.back = {};   // Optional
 
-        configInfo.dynamicStateEnables = {VK_DYNAMIC_STATE_VIEWPORT, VK_DYNAMIC_STATE_SCISSOR};
+        configInfo.dynamicStateEnables = { VK_DYNAMIC_STATE_VIEWPORT, VK_DYNAMIC_STATE_SCISSOR };
         configInfo.dynamicStateInfo.sType = VK_STRUCTURE_TYPE_PIPELINE_DYNAMIC_STATE_CREATE_INFO;
         configInfo.dynamicStateInfo.pDynamicStates = configInfo.dynamicStateEnables.data();
         configInfo.dynamicStateInfo.dynamicStateCount = static_cast<uint32_t>(configInfo.dynamicStateEnables.size());
@@ -228,17 +228,17 @@ namespace ave{
         configInfo.attributeDescriptions = AveModel::Vertex::getAttributeDescriptions();
     }
 
-    void AvePipeline::enableAlphaBlending(PipelineConfigInfo& configInfo){
-        configInfo.colorBlendAttachment.blendEnable = VK_TRUE; //has a performance cost when enabled 
-
+    void AvePipeline::enableAlphaBlending(PipelineConfigInfo& configInfo) {
+        configInfo.colorBlendAttachment.blendEnable = VK_TRUE;
         configInfo.colorBlendAttachment.colorWriteMask =
             VK_COLOR_COMPONENT_R_BIT | VK_COLOR_COMPONENT_G_BIT | VK_COLOR_COMPONENT_B_BIT |
             VK_COLOR_COMPONENT_A_BIT;
-        configInfo.colorBlendAttachment.srcColorBlendFactor = VK_BLEND_FACTOR_SRC_ALPHA;   
+        configInfo.colorBlendAttachment.srcColorBlendFactor = VK_BLEND_FACTOR_SRC_ALPHA;
         configInfo.colorBlendAttachment.dstColorBlendFactor = VK_BLEND_FACTOR_ONE_MINUS_SRC_ALPHA;
-        configInfo.colorBlendAttachment.colorBlendOp = VK_BLEND_OP_ADD;              
-        configInfo.colorBlendAttachment.srcAlphaBlendFactor = VK_BLEND_FACTOR_ONE;   
-        configInfo.colorBlendAttachment.dstAlphaBlendFactor = VK_BLEND_FACTOR_ZERO;  
-        configInfo.colorBlendAttachment.alphaBlendOp = VK_BLEND_OP_ADD;              
+        configInfo.colorBlendAttachment.colorBlendOp = VK_BLEND_OP_ADD;
+        configInfo.colorBlendAttachment.srcAlphaBlendFactor = VK_BLEND_FACTOR_ONE;
+        configInfo.colorBlendAttachment.dstAlphaBlendFactor = VK_BLEND_FACTOR_ZERO;
+        configInfo.colorBlendAttachment.alphaBlendOp = VK_BLEND_OP_ADD;
     }
+
 }

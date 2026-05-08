@@ -10,35 +10,31 @@
 #include <stdexcept>
 #include <iostream> //temporary
 
-namespace ave{
-    AveImage::AveImage(AveDevice& device) : aveDevice{device} {
-        //createTextureImage(); this might be better to call from first app to control when image is created
-        //
-        //createVertexBuffer(); 
-        createTextureSampler(); 
+namespace ave {
+    AveImage::AveImage(AveDevice& device) : aveDevice{ device } {
+        createTextureSampler();
     }
 
-    AveImage::~AveImage(){
+    AveImage::~AveImage() {
         vkDestroySampler(aveDevice.device(), textureSampler, nullptr);
-        if(textureImageView != VK_NULL_HANDLE){
+        if (textureImageView != VK_NULL_HANDLE) {
             vkDestroyImageView(aveDevice.device(), textureImageView, nullptr); //might not need
         }
-        if(textureImage != VK_NULL_HANDLE){
+        if (textureImage != VK_NULL_HANDLE) {
             vkDestroyImage(aveDevice.device(), textureImage, nullptr);
         }
-        if(textureImageMemory != VK_NULL_HANDLE){
+        if (textureImageMemory != VK_NULL_HANDLE) {
             vkFreeMemory(aveDevice.device(), textureImageMemory, nullptr);
         }
-        
+
     }
 
-    void AveImage::createTextureImage(const std::string& imagePath){
+    void AveImage::createTextureImage(const std::string& imagePath) {
 
         if (imagePath.empty()) {
             std::cout << "no image path provided\n";
-            
         }
-        
+
         std::string fullPath = ENGINE_DIR + imagePath;
         int texWidth, texHeight, texChannels;
         stbi_uc* pixels = stbi_load(fullPath.c_str(), &texWidth, &texHeight, &texChannels, STBI_rgb_alpha);
@@ -48,7 +44,7 @@ namespace ave{
             throw std::runtime_error("failed to load texture image!");
         }
 
-        VkDeviceMemory stagingBufferMemory;
+        //VkDeviceMemory stagingBufferMemory;
 
         AveBuffer stagingBuffer(
             aveDevice,
@@ -86,33 +82,15 @@ namespace ave{
         //staging buffer and its memory will be destroyed when it goes out of scope since there is a destructor in AveBuffer
 
     }
-/*
-    VkImageView AveImage::createImageView(VkImage image, VkFormat format) {
-        VkImageViewCreateInfo viewInfo{};
-        viewInfo.sType = VK_STRUCTURE_TYPE_IMAGE_VIEW_CREATE_INFO;
-        viewInfo.image = image;
-        viewInfo.viewType = VK_IMAGE_VIEW_TYPE_2D;
-        viewInfo.format = format;
-        viewInfo.subresourceRange.aspectMask = VK_IMAGE_ASPECT_COLOR_BIT;
-        viewInfo.subresourceRange.baseMipLevel = 0;
-        viewInfo.subresourceRange.levelCount = 1;
-        viewInfo.subresourceRange.baseArrayLayer = 0;
-        viewInfo.subresourceRange.layerCount = 1;
-        VkImageView imageView;
-        if (vkCreateImageView(aveDevice.device(), &viewInfo, nullptr, &imageView) != VK_SUCCESS) {
-            throw std::runtime_error("failed to create texture image view!");
-        }
-        return imageView;
-    }
-*/
-    void AveImage::createTextureImageView(){
+    
+    void AveImage::createTextureImageView() {
         //AveSwapChain::createImageView(textureImage, VK_FORMAT_R8G8B8A8_SRGB);
         //This needs it's own since swap chain might not be created yet
         aveDevice.createImageView(textureImage, VK_FORMAT_R8G8B8A8_SRGB, textureImageView);
         //textureImageView = createImageView(textureImage, VK_FORMAT_R8G8B8A8_SRGB);
     }
 
-    VkDescriptorImageInfo AveImage::descriptorInfo(VkImageLayout imageLayout){
+    VkDescriptorImageInfo AveImage::descriptorInfo(VkImageLayout imageLayout) {
         return VkDescriptorImageInfo{
             textureSampler,
             textureImageView,
@@ -120,8 +98,8 @@ namespace ave{
         };
     }
 
-    void AveImage::createImage(uint32_t width, uint32_t height, VkFormat format, VkImageTiling tiling, VkImageUsageFlags usage, 
-            VkMemoryPropertyFlags properties, VkImage& image, VkDeviceMemory& imageMemory){
+    void AveImage::createImage(uint32_t width, uint32_t height, VkFormat format, VkImageTiling tiling, VkImageUsageFlags usage,
+        VkMemoryPropertyFlags properties, VkImage& image, VkDeviceMemory& imageMemory) {
 
         // The parameters for an image creation 
         VkImageCreateInfo imageInfo{};
@@ -193,24 +171,26 @@ namespace ave{
         barrier.subresourceRange.levelCount = 1;
         barrier.subresourceRange.baseArrayLayer = 0;
         barrier.subresourceRange.layerCount = 1;
-        
+
         //VkPipelineStageFlags is used to specify the pipeline stages involved in the memory barrier operation.
         VkPipelineStageFlags sourceStage;
         VkPipelineStageFlags destinationStage;
 
-        if(oldLayout == VK_IMAGE_LAYOUT_UNDEFINED && newLayout == VK_IMAGE_LAYOUT_TRANSFER_DST_OPTIMAL){
+        if (oldLayout == VK_IMAGE_LAYOUT_UNDEFINED && newLayout == VK_IMAGE_LAYOUT_TRANSFER_DST_OPTIMAL) {
             barrier.srcAccessMask = 0;
             barrier.dstAccessMask = VK_ACCESS_TRANSFER_WRITE_BIT;
 
             sourceStage = VK_PIPELINE_STAGE_TOP_OF_PIPE_BIT;
             destinationStage = VK_PIPELINE_STAGE_TRANSFER_BIT;
-        }else if(oldLayout == VK_IMAGE_LAYOUT_TRANSFER_DST_OPTIMAL && newLayout == VK_IMAGE_LAYOUT_SHADER_READ_ONLY_OPTIMAL){
+        }
+        else if (oldLayout == VK_IMAGE_LAYOUT_TRANSFER_DST_OPTIMAL && newLayout == VK_IMAGE_LAYOUT_SHADER_READ_ONLY_OPTIMAL) {
             barrier.srcAccessMask = VK_ACCESS_TRANSFER_WRITE_BIT;
             barrier.dstAccessMask = VK_ACCESS_SHADER_READ_BIT;
 
             sourceStage = VK_PIPELINE_STAGE_TRANSFER_BIT;
             destinationStage = VK_PIPELINE_STAGE_FRAGMENT_SHADER_BIT;
-        }else{
+        }
+        else {
             throw std::invalid_argument("unsupported layout transition!");
         }
 
@@ -226,7 +206,7 @@ namespace ave{
         aveDevice.endSingleTimeCommands(commandBuffer);
     }
 
-    void AveImage::copyBufferToImage(VkBuffer buffer, VkImage image, uint32_t width, uint32_t height){
+    void AveImage::copyBufferToImage(VkBuffer buffer, VkImage image, uint32_t width, uint32_t height) {
         VkCommandBuffer commandBuffer = aveDevice.beginSingleTimeCommands();
 
         VkBufferImageCopy region{};
@@ -239,8 +219,8 @@ namespace ave{
         region.imageSubresource.baseArrayLayer = 0;
         region.imageSubresource.layerCount = 1;
 
-        region.imageOffset = {0, 0, 0};
-        region.imageExtent = {width, height, 1};
+        region.imageOffset = { 0, 0, 0 };
+        region.imageExtent = { width, height, 1 };
 
         vkCmdCopyBufferToImage(commandBuffer, buffer, image, VK_IMAGE_LAYOUT_TRANSFER_DST_OPTIMAL, 1, &region);
 
@@ -248,7 +228,7 @@ namespace ave{
     }
 
     //
-    void AveImage::createTextureSampler(){
+    void AveImage::createTextureSampler() {
 
         VkSamplerCreateInfo samplerInfo{};
         samplerInfo.sType = VK_STRUCTURE_TYPE_SAMPLER_CREATE_INFO;

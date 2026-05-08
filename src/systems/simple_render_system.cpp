@@ -1,118 +1,122 @@
+
+
 #include "simple_render_system.hpp"
+
 #include <stdexcept>
 
-//libs
-#define GLM_FORCE_RADIANS
-#define GLM_FORCE_DEPTH_ZERO_TO_ONE
-#include <glm/glm.hpp>
-#include <glm/gtc/constants.hpp>
+#define GLM_FORCE_RADIANS //always use radians for glm math functions
+#define GLM_FORCE_DEPTH_ZERO_TO_ONE //force depth values to be between 0 and 1
+#include <glm/glm.hpp> 
+#include <glm/gtc/constants.hpp> //for glm::pi
 
 #include <array>
 #include <cassert>
 #include <iostream>
 
 namespace ave {
+	struct SimplePushConstantData { //this matches the push in shaders
+		glm::mat4 modelMatrix{ 1.f };
+		glm::mat4 normalMatrix{ 1.f }; 
+	};
 
-    struct SimplePushConstantData{ //this matches the push in shaders
-        glm::mat4 modelMatrix{1.f};
-        glm::mat4 normalMatrix{1.f}; //use alignas to make right space in memory
-    };
+	SimpleRenderSystem::SimpleRenderSystem(AveDevice& device, VkRenderPass renderPass, std::vector<VkDescriptorSetLayout> setLayouts) : aveDevice{ device } {
+		if (setLayouts.empty()) {
+			throw std::runtime_error("SimpleRenderSystem requires at least one descriptor set layout (global UBO).");
+		}
 
-    SimpleRenderSystem::SimpleRenderSystem(AveDevice& device, VkRenderPass renderPass, std::vector<VkDescriptorSetLayout> setLayouts) : aveDevice{device}, setLayouts{setLayouts} {
-        /*
-        for(VkDescriptorSetLayout layout : setLayouts){
-            createPipelineLayout(layout);
-            //std::cout << "Descriptor Set Layout: " << layout << std::endl;
-        }*/
-        createPipelineLayout();
-        createPipeline(renderPass);
-    }
+		createPipelineLayout(setLayouts);
+		createPipeline(renderPass);
+	}
 
-    SimpleRenderSystem::~SimpleRenderSystem() {
-        vkDestroyPipelineLayout(aveDevice.device(), pipelineLayout, nullptr);
-    }
+	SimpleRenderSystem::~SimpleRenderSystem() {
+		vkDestroyPipelineLayout(aveDevice.device(), pipelineLayout, nullptr);
+	}
 
-    void SimpleRenderSystem::createPipelineLayout(){
+	void SimpleRenderSystem::createPipelineLayout(std::vector <VkDescriptorSetLayout> setLayouts) {
+		//std::cout << " Creating pipeline layout " << i << "\n";
+		//push constant range is a structure that describes a range of push constants. 
+		//Range being a section of memory that can be updated frequently and accessed by shaders
+		VkPushConstantRange pushConstantRange{}; 
+		//specify which shader stages can access the push constant range. We want in both vertex and fragment shaders
+		pushConstantRange.stageFlags = VK_SHADER_STAGE_VERTEX_BIT | VK_SHADER_STAGE_FRAGMENT_BIT;
+		pushConstantRange.offset = 0; //offset is the starting point of the push constant range within the push constant memory
+		pushConstantRange.size = sizeof(SimplePushConstantData);
 
-        VkPushConstantRange pushConstantRange{};
-        //this signals that we want access to push constant data in both vertex and frag shaders
-        pushConstantRange.stageFlags = VK_SHADER_STAGE_VERTEX_BIT | VK_SHADER_STAGE_FRAGMENT_BIT; 
-        pushConstantRange.offset = 0;
-        pushConstantRange.size = sizeof(SimplePushConstantData);
-        
-        VkPipelineLayoutCreateInfo pipelineLayoutInfo{};
+		//descriptor set layouts define the structure of descriptor sets that will be used by the pipeline
 
-        pipelineLayoutInfo.sType = VK_STRUCTURE_TYPE_PIPELINE_LAYOUT_CREATE_INFO;
-        pipelineLayoutInfo.setLayoutCount = static_cast<uint32_t>(setLayouts.size());
-        pipelineLayoutInfo.pSetLayouts = setLayouts.data();
-        //push constants are a way to efficiently send a small amount of data to shader programs
-        pipelineLayoutInfo.pushConstantRangeCount = 1;
-        pipelineLayoutInfo.pPushConstantRanges = &pushConstantRange;
-        if (vkCreatePipelineLayout(aveDevice.device(), &pipelineLayoutInfo, nullptr, &pipelineLayout) != VK_SUCCESS) {
-            throw std::runtime_error("failed to create pipeline layout!");
-        }
-    }
+		VkPipelineLayoutCreateInfo pipelineLayoutInfo{};
+		pipelineLayoutInfo.sType = VK_STRUCTURE_TYPE_PIPELINE_LAYOUT_CREATE_INFO;
+		//number of descriptor set layouts being used by the pipeline layout
+		pipelineLayoutInfo.setLayoutCount = static_cast<uint32_t>(setLayouts.size());
+		//pointer to an array of descriptor set layouts. 
+		pipelineLayoutInfo.pSetLayouts = setLayouts.data();
+		pipelineLayoutInfo.pushConstantRangeCount = 1;
+		pipelineLayoutInfo.pPushConstantRanges = &pushConstantRange;
+		//VkPipelineLayout pLayout;
+		if (vkCreatePipelineLayout(aveDevice.device(), &pipelineLayoutInfo, nullptr, &pipelineLayout) != VK_SUCCESS) {
+			throw std::runtime_error("failed to create pipeline layout!");
+		}
+	}
 
+	void SimpleRenderSystem::createPipeline(VkRenderPass renderPass) {
+		//std::cout << " Creating pipeline " << i << "\n";
+		assert(pipelineLayout != VK_NULL_HANDLE && "Cannot create pipeline before pipeline layout");
+		
+		PipelineConfigInfo pipelineConfig{};
+		AvePipeline::defaultPipelineConfigInfo(pipelineConfig);//to use swapchain width and height since it might not match the window's
+		pipelineConfig.renderPass = renderPass;
+		pipelineConfig.pipelineLayout = pipelineLayout;
+		avePipeline = std::make_unique<AvePipeline>(aveDevice, "shaders/shader.vert.spv", "shaders/shader.frag.spv", pipelineConfig);
+		
+	}
 
-    void SimpleRenderSystem::createPipeline(VkRenderPass renderPass){
-        assert(pipelineLayout != nullptr && "Cannot create pipeline before pipline layout");
+	void SimpleRenderSystem::renderGameObjects(FrameInfo& frameInfo) {
+		avePipeline->bind(frameInfo.commandBuffer);
 
-        PipelineConfigInfo pipelineConfig{};
-        AvePipeline::defaultPipelineConfigInfo(pipelineConfig); //betwe to use swapchain width and height since it might not match the windows
-        pipelineConfig.renderPass = renderPass;
-        pipelineConfig.pipelineLayout = pipelineLayout;
-        avePipeline = std::make_unique<AvePipeline>(aveDevice, "shaders/shader.vert.spv", "shaders/shader.frag.spv", pipelineConfig);
-    }
-
-    void SimpleRenderSystem::renderGameObjects(FrameInfo& frameInfo){
-
-        avePipeline->bind(frameInfo.commandBuffer);
-
-        vkCmdBindDescriptorSets(
-            frameInfo.commandBuffer,
-            VK_PIPELINE_BIND_POINT_GRAPHICS,
-            pipelineLayout,
-            0, 1, 
-            &frameInfo.globalDescriptorSet,
-            0, nullptr
+		vkCmdBindDescriptorSets(
+            frameInfo.commandBuffer, 
+            VK_PIPELINE_BIND_POINT_GRAPHICS, 
+            pipelineLayout, 
+            0, 
+            1,
+			&frameInfo.globalDescriptorSet, 
+            0, 
+            nullptr
         );
 
-        for(auto& obj: frameInfo.gameObjects){
-            //std::cout << "Rendering GameObject ID: " << obj.first << std::endl;
-            if(obj.second.model == nullptr) continue;
-            VkDescriptorSet textureSet = obj.second.model->getTextureDescriptor();
-            if(textureSet != VK_NULL_HANDLE){
+		for (auto& obj : frameInfo.gameObjects) {
+			//std::cout << " obj:" << obj.first << "\n";
+			if (obj.second.model == nullptr) continue;
+			
+			VkDescriptorSet textureSet = obj.second.getTextureDescriptor();
+			
+			if (textureSet != VK_NULL_HANDLE) {
                 vkCmdBindDescriptorSets(
-                    frameInfo.commandBuffer,
-                    VK_PIPELINE_BIND_POINT_GRAPHICS,
-                    pipelineLayout,
-                    1, 1, 
-                    &textureSet,
-                    0, nullptr
+					frameInfo.commandBuffer, 
+                    VK_PIPELINE_BIND_POINT_GRAPHICS, 
+                    pipelineLayout, 
+                    1, 
+                    1,
+                    &textureSet, 
+                    0, 
+                    nullptr
                 );
-            }
-            SimplePushConstantData push{};
-            push.modelMatrix = obj.second.transform.mat4();
-            push.normalMatrix = obj.second.transform.normalMatrix();
+			}
+			SimplePushConstantData push{};
+			push.modelMatrix = obj.second.transform.mat4();
+			push.normalMatrix = obj.second.transform.normalMatrix();
 
-            vkCmdPushConstants(frameInfo.commandBuffer, pipelineLayout, VK_SHADER_STAGE_VERTEX_BIT | VK_SHADER_STAGE_FRAGMENT_BIT, 0, sizeof(SimplePushConstantData), &push);
+			vkCmdPushConstants(
+				frameInfo.commandBuffer, 
+                pipelineLayout, 
+                VK_SHADER_STAGE_VERTEX_BIT | VK_SHADER_STAGE_FRAGMENT_BIT, 
+                0,
+				sizeof(SimplePushConstantData), 
+                &push
+            );
 
-            obj.second.model->bind(frameInfo.commandBuffer);
-            obj.second.model->draw(frameInfo.commandBuffer);
-        }
-        /*
-        for(auto& kv: frameInfo.gameObjects){
-            auto& obj = kv.second;
-            if(obj.model == nullptr) continue;
-            SimplePushConstantData push{};
-            push.modelMatrix = obj.transform.mat4();
-            push.normalMatrix = obj.transform.normalMatrix();
-
-            vkCmdPushConstants(frameInfo.commandBuffer, pipelineLayout, VK_SHADER_STAGE_VERTEX_BIT | VK_SHADER_STAGE_FRAGMENT_BIT, 0, sizeof(SimplePushConstantData), &push);
-
-            obj.model->bind(frameInfo.commandBuffer);
-            obj.model->draw(frameInfo.commandBuffer);
-        }*/
-    }
-
+			obj.second.model->bind(frameInfo.commandBuffer);
+			obj.second.model->draw(frameInfo.commandBuffer);
+		}
+	}
 }
