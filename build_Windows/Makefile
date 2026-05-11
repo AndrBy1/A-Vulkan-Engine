@@ -59,7 +59,7 @@ EQUALS = =
 CMAKE_SOURCE_DIR = C:\Users\Andre\Desktop\Personal\VulkanTest
 
 # The top-level build directory on which CMake was run.
-CMAKE_BINARY_DIR = C:\Users\Andre\Desktop\Personal\VulkanTest\build
+CMAKE_BINARY_DIR = C:\Users\Andre\Desktop\Personal\VulkanTest\build_Windows
 
 #=============================================================================
 # Targets provided globally by CMake.
@@ -86,9 +86,9 @@ rebuild_cache/fast: rebuild_cache
 
 # The main all target
 all: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start C:\Users\Andre\Desktop\Personal\VulkanTest\build\CMakeFiles C:\Users\Andre\Desktop\Personal\VulkanTest\build\\CMakeFiles\progress.marks
+	$(CMAKE_COMMAND) -E cmake_progress_start C:\Users\Andre\Desktop\Personal\VulkanTest\build_Windows\CMakeFiles C:\Users\Andre\Desktop\Personal\VulkanTest\build_Windows\\CMakeFiles\progress.marks
 	$(MAKE) $(MAKESILENT) -f CMakeFiles\Makefile2 all
-	$(CMAKE_COMMAND) -E cmake_progress_start C:\Users\Andre\Desktop\Personal\VulkanTest\build\CMakeFiles 0
+	$(CMAKE_COMMAND) -E cmake_progress_start C:\Users\Andre\Desktop\Personal\VulkanTest\build_Windows\CMakeFiles 0
 .PHONY : all
 
 # The main clean target

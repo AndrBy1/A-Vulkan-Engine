@@ -1,6 +1,6 @@
 #!/bin/bash
-mkdir -p build
-cd build
+mkdir -p build_Unix
+cd build_Unix
 cmake -S ../ -B .
-make && make Shaders && ./VkeEngine
+make && make Shaders && ./AVKEngine
 cd ..

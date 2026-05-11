@@ -1,9 +1,10 @@
 
 
-build/CMakeFiles/
+build_Windows/CMakeFiles/
+build_Unix/CMakeFiles/
 .vscode/
+.vs/
 
 *.spv
-
 *.o
 *.yaml

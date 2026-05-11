@@ -1,3 +1,16 @@
+To build:
+- On windows: ./windowsBuild.bat
+- On Linux: ./unixBuild.sh
+
+To run:
+- On windows: build_Windows/AVKEngine.exe
+- On Linux: build_Unix/AVKEngine
+
+External tools used: GLFW for window creation: https://www.glfw.org/ GLM for math functions: https://www.opengl.org/sdk/libs/GLM/ Tiny Object Loader: https://github.com/tinyobjloader/tinyobjloader Stb Image: https://github.com/nothings/stb
+
+Borrowed code: VulkanBuffer by Sascha Willems: https://github.com/SaschaWillems/Vulkan/blob/master/base/VulkanBuffer.h
+
+
 as of rn this file uses 3D models with settings:
 Forward: Z Forward
 Up: -Y Up
