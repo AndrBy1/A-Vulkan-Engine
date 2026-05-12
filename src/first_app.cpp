@@ -7,6 +7,7 @@
 #include "systems/point_light_system.hpp"
 #include "ave_buffer.hpp"
 #include "ave_image.hpp"
+#include "ave_physics.hpp"
 
 #include <stdexcept>
 
@@ -113,6 +114,17 @@ namespace ave {
         //returns a high precision value representing current time
         auto currentTime = std::chrono::high_resolution_clock::now();
 
+        PhysicsClass physics;
+
+        physics.addRigidbody(gameObjects.at(0));
+        physics.addRigidbody(gameObjects.at(1));
+        physics.addRigidbody(gameObjects.at(2));
+        physics.rBodies[0].mass = 0; //setting to 0 makes it immovable
+        physics.addBoxCollider(0, { 5.f, -0.25f, 5.f });
+        physics.addBoxCollider(1, {0.3f, 0.3f, 0.3f});
+        physics.addBoxCollider(2, { 0.3f, 0.3f, 0.3f });
+        physics.applyForce(2, { -150.f, 150.f, 150.f }); 
+
         //std::cout << "sizeof(GlobalUbo): " << sizeof(GlobalUbo) << "\n";
 
         while (!aveWindow.shouldClose()) {
@@ -148,11 +160,20 @@ namespace ave {
                 ubo.projection = camera.getProjection();
                 ubo.view = camera.getView();
                 ubo.inverseView = camera.getInverseView();
+                physics.step(frameTime);
                 
                 pointLightSystem.update(frameInfo, ubo);
                 //std::cout << "buffer data: " << typeid(&ubo).name() << std::endl;
                 uboBuffers[frameIndex]->writeToBuffer(&ubo); //don't need offset or size because we are using the entire buffer which is set in the constructor which is found at the top of this function
                 uboBuffers[frameIndex]->flush();
+
+                //update game object positions from physics simulation
+                for(auto& body: physics.rBodies){
+                    //std::cout << "Object ID: " << body.objId << " is at position: " << gameObjects.at(body.objId).transform.translation.z << "\n";
+                    if (body.sleep) continue;
+                    gameObjects.at(body.objId).transform.translation = body.position;
+                    //gameObjects.at(body.objId).transform.rotation = body.rotation;
+                }
 
                 //render
 				aveRenderer.beginSwapChainRenderPass(commandBuffer);

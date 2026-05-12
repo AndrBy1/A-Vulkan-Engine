@@ -56,10 +56,10 @@ RM = "C:\Program Files\CMake\bin\cmake.exe" -E rm -f
 EQUALS = =
 
 # The top-level source directory on which CMake was run.
-CMAKE_SOURCE_DIR = C:\Users\Andre\Desktop\Personal\VulkanTest
+CMAKE_SOURCE_DIR = C:\Users\Andre\Desktop\Personal\A_Vulkan_Engine
 
 # The top-level build directory on which CMake was run.
-CMAKE_BINARY_DIR = C:\Users\Andre\Desktop\Personal\VulkanTest\build_Windows
+CMAKE_BINARY_DIR = C:\Users\Andre\Desktop\Personal\A_Vulkan_Engine\build_Windows
 
 #=============================================================================
 # Targets provided globally by CMake.
@@ -86,9 +86,9 @@ rebuild_cache/fast: rebuild_cache
 
 # The main all target
 all: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start C:\Users\Andre\Desktop\Personal\VulkanTest\build_Windows\CMakeFiles C:\Users\Andre\Desktop\Personal\VulkanTest\build_Windows\\CMakeFiles\progress.marks
+	$(CMAKE_COMMAND) -E cmake_progress_start C:\Users\Andre\Desktop\Personal\A_Vulkan_Engine\build_Windows\CMakeFiles C:\Users\Andre\Desktop\Personal\A_Vulkan_Engine\build_Windows\\CMakeFiles\progress.marks
 	$(MAKE) $(MAKESILENT) -f CMakeFiles\Makefile2 all
-	$(CMAKE_COMMAND) -E cmake_progress_start C:\Users\Andre\Desktop\Personal\VulkanTest\build_Windows\CMakeFiles 0
+	$(CMAKE_COMMAND) -E cmake_progress_start C:\Users\Andre\Desktop\Personal\A_Vulkan_Engine\build_Windows\CMakeFiles 0
 .PHONY : all
 
 # The main clean target
@@ -308,6 +308,30 @@ src/ave_model.s: src/ave_model.cpp.s
 src/ave_model.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles\AVKEngine.dir\build.make CMakeFiles/AVKEngine.dir/src/ave_model.cpp.s
 .PHONY : src/ave_model.cpp.s
+
+src/ave_physics.obj: src/ave_physics.cpp.obj
+.PHONY : src/ave_physics.obj
+
+# target to build an object file
+src/ave_physics.cpp.obj:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\AVKEngine.dir\build.make CMakeFiles/AVKEngine.dir/src/ave_physics.cpp.obj
+.PHONY : src/ave_physics.cpp.obj
+
+src/ave_physics.i: src/ave_physics.cpp.i
+.PHONY : src/ave_physics.i
+
+# target to preprocess a source file
+src/ave_physics.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\AVKEngine.dir\build.make CMakeFiles/AVKEngine.dir/src/ave_physics.cpp.i
+.PHONY : src/ave_physics.cpp.i
+
+src/ave_physics.s: src/ave_physics.cpp.s
+.PHONY : src/ave_physics.s
+
+# target to generate assembly for a file
+src/ave_physics.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\AVKEngine.dir\build.make CMakeFiles/AVKEngine.dir/src/ave_physics.cpp.s
+.PHONY : src/ave_physics.cpp.s
 
 src/ave_pipeline.obj: src/ave_pipeline.cpp.obj
 .PHONY : src/ave_pipeline.obj
@@ -556,6 +580,9 @@ help:
 	@echo ... src/ave_model.obj
 	@echo ... src/ave_model.i
 	@echo ... src/ave_model.s
+	@echo ... src/ave_physics.obj
+	@echo ... src/ave_physics.i
+	@echo ... src/ave_physics.s
 	@echo ... src/ave_pipeline.obj
 	@echo ... src/ave_pipeline.i
 	@echo ... src/ave_pipeline.s

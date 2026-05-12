@@ -1,3 +1,8 @@
+
+
+The built scene is a simple scene with a plane and a number of point lights. The point lights are rendered as translucent billboards. 
+The camera can be moved around using the wasd keys and the camera can be rotated using the arrow keys.
+
 To build:
 - On windows: ./windowsBuild.bat
 - On Linux: ./unixBuild.sh
