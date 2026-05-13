@@ -20,7 +20,7 @@ namespace ave{
 
         glm::quat rotation;
         glm::vec3 force{0.f};
-        int objId;
+        //int objId;
         float mass;
         float sleepTimer = 0.f;
         bool sleep{false};
@@ -63,12 +63,12 @@ namespace ave{
     struct BoxCollider{
 		//half extents is half the size of the box in each dimension
         glm::vec3 halfSize;
-        uint32_t bodyIndex;
+        uint32_t objID; //object ID
     };
 
     struct SphereCollider{
         float radius;
-        uint32_t bodyIndex; //index of the rigid body in the physics system 
+        uint32_t objID; //object ID 
     }; 
 
     struct Cell { //for a uniform grid
@@ -90,7 +90,7 @@ namespace ave{
 
         Cell getCell(const glm::vec3& pos, float cellSize);
 
-        std::vector<Rigidbody> rBodies;
+        std::unordered_map<int, Rigidbody> rBodies; // int is the game object ID.
 
         private:
         void buildGrid(float cellSize);

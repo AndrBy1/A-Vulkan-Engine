@@ -168,10 +168,11 @@ namespace ave {
                 uboBuffers[frameIndex]->flush();
 
                 //update game object positions from physics simulation
-                for(auto& body: physics.rBodies){
+                for(auto& pair: physics.rBodies){
+                    Rigidbody& body = pair.second;
                     //std::cout << "Object ID: " << body.objId << " is at position: " << gameObjects.at(body.objId).transform.translation.z << "\n";
                     if (body.sleep) continue;
-                    gameObjects.at(body.objId).transform.translation = body.position;
+                    gameObjects.at(pair.first).transform.translation = body.position;
                     //gameObjects.at(body.objId).transform.rotation = body.rotation;
                 }
 
@@ -209,7 +210,7 @@ namespace ave {
             {.1f, 1.f, .1f},
             {1.f, 1.f, .1f},
             {.1f, 1.f, 1.f},
-            {1.f, 1.f, 1.f}  //
+            {1.f, 1.f, 1.f} 
         };
 
         for(int i = 0; i < lightColors.size(); i++){
